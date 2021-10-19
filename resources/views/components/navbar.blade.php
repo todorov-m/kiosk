@@ -3,7 +3,7 @@
          <div class="collapse navbar-collapse" id="navbarsExample07">
              <ul class="navbar-nav mr-auto">
                  <li class="nav-item active">
-                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href="/items">Артикули <span class="sr-only">(current)</span></a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Link</a>
@@ -32,6 +32,7 @@
                      <li class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Админ</a>
                          <div class="dropdown-menu" aria-labelledby="dropdown08">
+                             <a class="dropdown-item" href="/users">Потребители</a>
                              <a class="dropdown-item" href="/createuser">Нов потребител</a>
                              <hr/>
                              <a class="dropdown-item" href="/logout"
