@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use \App\Http\Livewire\Items;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::post('/logout', [UserController::class,'destroy'])->middleware('auth');
 Route::get('/items', function () {
     return view('livewire.items');
 })->middleware('auth');
+Route::post('/items', [Items::class,'submit']);

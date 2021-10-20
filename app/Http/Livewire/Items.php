@@ -12,9 +12,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class Items extends LivewireDatatable
 {
-    public $model =Item::class;
-
-
+    public $model = Item::class;
     public $ean;
     public $name;
     public $delivery_price;
@@ -23,12 +21,13 @@ class Items extends LivewireDatatable
 
     public function submit()
     {
-        $data = $this->validate([
+        $data = request()->validate([
             'ean' => 'required',
             'name' => 'required',
             'delivery_price' => 'required',
-            'body' => 'required',
-        ]);
+            'sale_price' => 'required',
+            'tax' => 'required',
+              ]);
 
         Item::create($data);
 
@@ -39,11 +38,18 @@ class Items extends LivewireDatatable
     {
         return [
             NumberColumn::name('id')->label('ID')->sortBy('id'),
-            Column::name('ean')->label('Баркод'),
+            Column::name('ean')
+                 ->label('Баркод'),
             Column::name('name')->label('Име'),
-            Column::name('tax')->label('Група данък'),
-            Column::name('delivery_price')->label('Доставна цена'),
-            Column::name('sale_price')->label('Продажна цена')
+            Column::name('delivery_price')
+                ->editable()
+                ->label('Доставна цена'),
+            Column::name('sale_price')
+                ->editable()
+                ->label('Продажна цена'),
+            Column::name('tax')
+                ->sortBy('tax')
+                ->label('Група данък')
         ];
     }
 }

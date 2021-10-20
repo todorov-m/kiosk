@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="col-md">
-                <form wire:submit.prevent="submit" method="Post" >
+                <form action="/items" method="Post" >
                     @csrf
                     <div class="form-row">
                         <x-form.input name="ean" class="form-group col-md-2" type="text" title="Баркод" />
@@ -15,8 +15,8 @@
                         <div class="form-group col-md-1">
                             <label for="inputState">Данък група</label>
                             <select class="form-control" name="tax" id="inputState">
-                                <option value="1" selected>Потребител</option>
-                                <option value="0">Администратор</option>
+                                <option value="7" selected>7%</option>
+                                <option value="19">19%</option>
                             </select>
                         </div>
                     </div>
