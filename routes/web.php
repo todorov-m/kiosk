@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Livewire\Items;
+use \App\Http\Livewire\Newsale;
+use \App\Http\Controllers\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +36,18 @@ Route::post('/logout', [UserController::class,'destroy'])->middleware('auth');
 Route::get('/items', function () {
     return view('livewire.items');
 })->middleware('auth');
+
 Route::post('/items', [Items::class,'submit']);
+
+#Продажби
+Route::get('/newsales', function () {
+    return view('livewire.newsale');
+})->middleware('auth');
+
+Route::get('/newsales', [SaleController::class,'submit']);
+Route::put('/newsales', [SaleController::class,'submit']);
+Route::post('/newsales', [SaleController::class,'store']);
+
+Route::get('/sales', function () {
+    return view('livewire.sales');
+})->middleware('auth');

@@ -5,18 +5,19 @@
                  <li class="nav-item active">
                      <a class="nav-link" href="/items">Артикули <span class="sr-only">(current)</span></a>
                  </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Link</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                 </li>
                  <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                     <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Продажби</a>
                      <div class="dropdown-menu" aria-labelledby="dropdown07">
-                         <a class="dropdown-item" href="#">Action</a>
-                         <a class="dropdown-item" href="#">Another action</a>
-                         <a class="dropdown-item" href="#">Something else here</a>
+                         <a class="dropdown-item" href="/newsales" onclick="event.preventDefault();
+                                                     document.getElementById('new-sale').submit();">Нова Продажба</a>
+                         <form id="new-sale" action="/newsales" method="POST"
+                               style="display: none;">
+                             <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
+                             <input type="hidden" name="total" value="0">
+                             <input type="hidden" name="status" value="0">
+                             @csrf
+                         </form>
+                         <a class="dropdown-item" href="/sales">Всички Продажби</a>
                      </div>
                  </li>
              </ul>
