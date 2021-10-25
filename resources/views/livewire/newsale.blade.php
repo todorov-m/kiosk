@@ -20,7 +20,7 @@
                     @if ($message == '0')
                         <div class="form-row">
                             <div class="alert alert-danger" role="alert">
-                                Грешен баркод или липсва количество!!
+                                Грешен или липсващ баркод!!!
                             </div>
                         </div>
                        @endif
@@ -29,12 +29,11 @@
 
                 </form>
             </div>
-            <div class="col-md mt-4">
-
-<livewire:newsale :salesId="$salesId">
-
-
+            <div class="row">
+                <div class="col-9"><livewire:newsale :salesId="$salesId" /></div>
+                <div class="col-3"><livewire:newsale-total :salesId="$salesId" /></div>
             </div>
-        </div>
+
+           </div>
     </div>
 </x-layout>

@@ -21,8 +21,8 @@ class CreateSaleContentsTable extends Migration
             $table->string('name');
             $table->string('tax');
             $table->string('quantity');
-            $table->string('single_price');
-            $table->string('linetotal');
+            $table->decimal('single_price', $precision = 6, $scale = 2);
+            $table->decimal('linetotal', $precision = 6, $scale = 2);
             $table->timestamps();
         });
     }

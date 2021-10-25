@@ -13,6 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tailwind.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <!-- Styles -->
 
@@ -23,6 +24,7 @@
 
     </style>
     <script src="{{ asset('js/cdn.min.js') }}" defer></script>
+
 </head>
 <body>
 <!-- Add Navigation Bar -->
@@ -40,6 +42,7 @@
 </main>
 
 <livewire:scripts />
+
 </body>
 
 </html>

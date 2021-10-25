@@ -15,6 +15,7 @@
                              <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
                              <input type="hidden" name="total" value="0">
                              <input type="hidden" name="status" value="0">
+                             <input type="hidden" name="salesId" value="0">
                              @csrf
                          </form>
                          <a class="dropdown-item" href="/sales">Всички Продажби</a>

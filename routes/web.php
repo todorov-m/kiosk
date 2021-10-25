@@ -48,6 +48,10 @@ Route::get('/newsales', [SaleController::class,'submit']);
 Route::put('/newsales', [SaleController::class,'submit']);
 Route::post('/newsales', [SaleController::class,'store']);
 
+Route::get('/sale', function () {
+    return view('sales.sale');
+})->middleware('auth');
+
 Route::get('/sales', function () {
     return view('livewire.sales');
 })->middleware('auth');
