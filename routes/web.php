@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SaldoController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Livewire\Items;
@@ -55,3 +56,8 @@ Route::get('/sale', function () {
 Route::get('/sales', function () {
     return view('livewire.sales');
 })->middleware('auth');
+
+#Салда
+
+Route::get('/shiftstart', [SaldoController::class,'index']);
+Route::post('/shiftstart', [SaldoController::class,'store']);

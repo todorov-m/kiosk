@@ -1,9 +1,5 @@
 <x-layout>
     @auth
-        <div class="bg-light p-5 rounded">
-            <h1>{{auth()->user()->username}}</h1>
-
-        </div>
 
 
     @else

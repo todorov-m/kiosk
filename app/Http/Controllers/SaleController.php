@@ -7,12 +7,14 @@ use App\Models\SaleContent;
 use App\Models\SaleHead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
+use PDF;
+
 
 class SaleController extends Controller
 {
     # Заглавна част на продажбата
     public function store(){
+       $message = '1';
 
         $data = request()->validate([
             'users_id' => 'required',
@@ -28,6 +30,14 @@ class SaleController extends Controller
                     'status' => '1',
                     'payd' => floatval($data['payd'])
                 ]);
+
+            $items = SaleContent::where('sale_heads_id', $data['salesId'])->get();
+
+            $pdf = PDF::loadView('sales.receipt',['items'=>$items])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
+            $path = public_path('/receipt/'); // <--- folder to store the pdf documents into the server;
+            $fileName =  'receipt.pdf' ; // <--giving the random filename,
+            $pdf->save(public_path().'/receipt/receipt_'.$data['salesId'].'.pdf');
+            $message = '3';
             }
 
         $data['payd'] ='0';
@@ -36,7 +46,8 @@ class SaleController extends Controller
 
         return view('livewire.newsale')->with([
             'salesId' => $saleid,
-            'message'=> '1'
+            'oldsalesId' => $data['salesId'],
+            'message'=> $message
         ]);
 
     }

@@ -2,6 +2,9 @@
     <div class="card mb-4 rounded-3 shadow-sm mt-3">
         <div class="card-header py-3">
             <h4 class="my-0 fw-normal">Продажба {{ $salesId }}  </h4>
+    @if ($message == '3')
+            <iframe onload="isLoaded()" id="pdf" name="pdf" src="/receipt/receipt_{{ $oldsalesId }}.pdf" style="position: absolute;width:0;height:0;border:0;"></iframe>
+    @endif
         </div>
         <div class="card-body">
             <div class="row justify-content-md-center">

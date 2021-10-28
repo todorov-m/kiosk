@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Saldo;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,24 @@ class UserController extends Controller
 
         if(auth()->attempt($request))
         {
-            return redirect('/');
+            $saldo = Saldo::where('users_id', auth()->user()->id)
+                ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+                ->first();
+
+            if (isset($saldo) && $saldo->shiftstatus == '0') {
+                return view('sales.shiftsaldo')->with([
+                    'shiftstart_sum' => $saldo->shiftstart_sum,
+                    'shiftsale_sum' => $saldo->shiftsale_sum,
+                    'shiftend_sum' => $saldo->shiftend_sum,
+                    'shiftstatus'=> $saldo->shiftstatus,
+                    'shift_id' => $saldo->id
+                ]);
+
+            }  else {
+                return view('sales.startshift');
+
+            }
+
         }
 
         return back()->withErrors([
