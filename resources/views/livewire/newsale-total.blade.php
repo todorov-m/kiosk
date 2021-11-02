@@ -32,7 +32,7 @@
 
     </div>
     <div class="col-md-12">
-        <a role="button" class="btn btn-danger pt-3 pb-3 total-size ml-4 mt-10" href="/sale" >ОТКАЗ & Нов</a>
+        <a role="button" class="btn btn-danger pt-3 pb-3 total-size ml-4 mt-10" href="/shiftstart" > >> ОТКАЗ << </a>
 
     </div>
 

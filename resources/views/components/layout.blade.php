@@ -48,7 +48,7 @@
 {{ $slot }}
 
 </main>
-
+<x-footer/>
 <livewire:scripts />
 
 </body>

@@ -7,9 +7,14 @@
     }
 
 </style>
-   @foreach($items as $item)
-   <p class="receipt text-success"> {{$item->ean}} - {{$item->quantity}} - {{$item->name}} </p>
+   @foreach($tax7 as $item7)
+   <p class="receipt text-success"> {{$item7->ean}} - {{$item7->quantity}} - {{$item7->name}} </p>
 
     @endforeach
+<hr/>
+@foreach($tax19 as $item19)
+    <p class="receipt text-success"> {{$item19->ean}} - {{$item19->quantity}} - {{$item19->name}} </p>
+
+@endforeach
 
 

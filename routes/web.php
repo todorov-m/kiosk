@@ -61,3 +61,4 @@ Route::get('/sales', function () {
 
 Route::get('/shiftstart', [SaldoController::class,'index']);
 Route::post('/shiftstart', [SaldoController::class,'store']);
+Route::put('/shiftend', [SaldoController::class,'shiftend']);

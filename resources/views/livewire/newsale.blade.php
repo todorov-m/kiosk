@@ -13,7 +13,7 @@
                     <input type="hidden" name="salesId" value="{{ $salesId }}">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-row">
-                    <x-form.autofocus name="ean" class="form-group col-md-6" type="text" title="Баркод" />
+                    <x-form.autofocus name="ean" class="form-group col-md-6" inputClass="form-control" labelClass="form-label" type="text" title="Баркод" />
 
                     <x-form.input name="quantity" class="form-group col-md-2" type="text" value="1" title="Кол." />
                         <div class="col-md-3 mb-3">

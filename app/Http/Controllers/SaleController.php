@@ -25,15 +25,22 @@ class SaleController extends Controller
         ]);
 
         if($data['salesId']>'0'){
+            $total = SaleContent::where('sale_heads_id', $data['salesId'])->sum('linetotal');
             SaleHead::where('id', $data['salesId'])
                 ->update([
                     'status' => '1',
-                    'payd' => floatval($data['payd'])
+                    'payd' => floatval($data['payd']),
+                    'total' => floatval($total)
                 ]);
 
-            $items = SaleContent::where('sale_heads_id', $data['salesId'])->get();
+            $tax7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                ->where('tax', 7)
+                ->get();
+            $tax19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                ->where('tax', 19)
+                ->get();
 
-            $pdf = PDF::loadView('sales.receipt',['items'=>$items])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
+            $pdf = PDF::loadView('sales.receipt',['tax7'=>$tax7, 'tax19'=>$tax19])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
             $path = public_path('/receipt/'); // <--- folder to store the pdf documents into the server;
             $fileName =  'receipt.pdf' ; // <--giving the random filename,
             $pdf->save(public_path().'/receipt/receipt_'.$data['salesId'].'.pdf');
@@ -41,6 +48,7 @@ class SaleController extends Controller
             }
 
         $data['payd'] ='0';
+//TODO проверка за започнало на Смяна
 
         $saleid = SaleHead::create($data)->id;
 

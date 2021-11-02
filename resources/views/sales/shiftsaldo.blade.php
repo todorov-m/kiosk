@@ -37,10 +37,12 @@
                 <div class="row justify-content-center mt-4">
                     <div class="card" style="width: 30rem;">
                         <a role="button" class="btn btn-primary pt-5 pb-5 total-size" href="/shiftend" onclick="event.preventDefault();
-                                                     document.getElementById('new-sale').submit();">Край на Смяна</a>
-                        <form id="new-sale" action="/shiftend" method="POST"
+                                                     document.getElementById('end-shift').submit();">Край на Смяна</a>
+                        <form id="end-shift" action="/shiftend" method="POST"
                               style="display: none;">
+                            @method('PUT')
                             <input type="hidden" name="shift_id" value="{{ $shift_id }}">
+                            <input type="hidden" name="shiftsale_sum" value="{{ $shiftsale_sum }}">
                             <input type="hidden" name="shiftend_sum" value="{{ $shiftstart_sum + $shiftsale_sum }}">
                             @csrf
                         </form>

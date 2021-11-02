@@ -28,6 +28,8 @@ class Items extends LivewireDatatable
             'sale_price' => 'required',
             'tax' => 'required',
               ]);
+        $data['delivery_price'] = str_replace(',','.',$data['delivery_price']);
+        $data['sale_price'] = str_replace(',','.',$data['sale_price']);
 
         Item::create($data);
 

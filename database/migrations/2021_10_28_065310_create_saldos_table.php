@@ -15,11 +15,11 @@ class CreateSaldosTable extends Migration
     {
         Schema::create('saldos', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('shiftstart_date');
-            $table->decimal('shiftstart_sum', $precision = 6, $scale = 2);
-            $table->decimal('shiftend_sum', $precision = 6, $scale = 2);
-            $table->decimal('shiftsale_sum', $precision = 6, $scale = 2);
-            $table->dateTime('shiftend_date');
+            $table->dateTime('shiftstart_date')->useCurrent();
+            $table->decimal('shiftstart_sum', $precision = 6, $scale = 2)->default('0.00');
+            $table->decimal('shiftend_sum', $precision = 6, $scale = 2)->default('0.00');
+            $table->decimal('shiftsale_sum', $precision = 6, $scale = 2)->default('0.00');
+            $table->dateTime('shiftend_date')->nullable();
             $table->string('shiftstatus')->default('0');
             $table->string('users_id');
             $table->timestamps();
