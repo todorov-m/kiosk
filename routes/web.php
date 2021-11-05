@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SaldoController;
+use App\Models\SaleContent;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Livewire\Items;
@@ -38,17 +39,33 @@ Route::get('/items', function () {
     return view('livewire.items');
 })->middleware('auth');
 
-Route::post('/items', [Items::class,'submit']);
+Route::post('/items', [Items::class,'submit'])->middleware('auth');
 
 #Продажби
 Route::get('/newsales', function () {
     return view('livewire.newsale');
 })->middleware('auth');
 
-Route::get('/newsales', [SaleController::class,'submit']);
-Route::put('/newsales', [SaleController::class,'submit']);
-Route::post('/newsales', [SaleController::class,'store']);
+# Нова Продажба
+Route::get('/newsales/{salesId}', [SaleController::class,'getsale'])->middleware('auth');
+Route::put('/newsales', [SaleController::class,'submit'])->middleware('auth');
+Route::post('/newsales', [SaleController::class,'store'])->middleware('auth');
 
+# Отказ на продажба status=99
+Route::get('/clearsale/{salesId}', [SaldoController::class,'clearsale'])->middleware('auth');
+
+#Изтриване на ред от продажбата
+Route::post('/deleterow', [SaleController::class,'deleterow'])->middleware('auth');
+
+# Всички Продажби
+Route::get('/listsales', function (){
+    return view('livewire.sales');
+})->middleware('auth');
+
+# Показване на съдържанието на продажбата
+Route::get('/sale/{id}',[SaleController::class,'listsale'])->middleware('auth');
+
+#Форма за НОва продажба
 Route::get('/sale', function () {
     return view('sales.sale');
 })->middleware('auth');
@@ -59,6 +76,6 @@ Route::get('/sales', function () {
 
 #Салда
 
-Route::get('/shiftstart', [SaldoController::class,'index']);
-Route::post('/shiftstart', [SaldoController::class,'store']);
-Route::put('/shiftend', [SaldoController::class,'shiftend']);
+Route::get('/shiftstart', [SaldoController::class,'index'])->middleware('auth');
+Route::post('/shiftstart', [SaldoController::class,'store'])->middleware('auth');
+Route::put('/shiftend', [SaldoController::class,'shiftend'])->middleware('auth');

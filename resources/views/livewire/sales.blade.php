@@ -1,3 +1,3 @@
-<div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
-</div>
+<x-layout>
+    <livewire:sales per-page="50"/>
+</x-layout>>

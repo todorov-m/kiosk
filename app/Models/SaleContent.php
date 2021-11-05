@@ -9,4 +9,9 @@ class SaleContent extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function head()
+    {
+        return $this->belongsTo(SaleHead::class);
+    }
 }

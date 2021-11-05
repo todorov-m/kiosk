@@ -18,7 +18,7 @@
                              <input type="hidden" name="salesId" value="0">
                              @csrf
                          </form>
-                         <a class="dropdown-item" href="/sales">Всички Продажби</a>
+                         <a class="dropdown-item" href="/listsales">Всички Продажби</a>
                      </div>
                  </li>
              </ul>

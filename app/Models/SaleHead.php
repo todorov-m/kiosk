@@ -9,4 +9,14 @@ class SaleHead extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function content()
+    {
+        return $this->hasMany(SaleContent::class);
+    }
 }

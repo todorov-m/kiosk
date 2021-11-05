@@ -12,6 +12,16 @@ use PDF;
 
 class SaleController extends Controller
 {
+    public function getsale($salesId){
+        $message = 1;
+        return view('livewire.newsale')->with([
+            'salesId' => $salesId,
+            'oldsalesId' => $salesId,
+            'message'=> $message
+        ]);
+
+    }
+
     # Заглавна част на продажбата
     public function store(){
        $message = '1';
@@ -45,6 +55,7 @@ class SaleController extends Controller
             $fileName =  'receipt.pdf' ; // <--giving the random filename,
             $pdf->save(public_path().'/receipt/receipt_'.$data['salesId'].'.pdf');
             $message = '3';
+            //TODO да се отбележе в базата че е печатана разписка
             }
 
         $data['payd'] ='0';
@@ -136,6 +147,42 @@ class SaleController extends Controller
         }
     }
 
+    public function deleterow(){
+        $message = '1';
+
+        $data = request()->validate([
+            'users_id' => 'required',
+            'total' => 'required',
+            'status' => 'required',
+            'salesId' => 'required',
+            'recordId' => 'required'
+        ]);
+        $salesId = $data['salesId'];
+        SaleContent::destroy($data['recordId']);
+
+        //Нов Тотал на документа
+        $total = SaleContent::where('sale_heads_id', $data['salesId'])
+            ->sum('linetotal');
+
+        SaleHead::where('id', $data['salesId'])
+            ->update([
+                'total' => $total
+            ]);
+
+       return redirect('newsales/'.$salesId)->with('success', 'Успешно изтрит ред!');
+
+
+    }
+
+    public function listsale($id){
+        $salehead = SaleHead::find($id);
+
+        $salecontent = SaleContent::where('sales_id', $id);
+dd ($salecontent);
+//TODO Да се довърши изгледа на продажбата
+        return view('sales.listsale', ["heads" => $salehead , "contents" => $salecontent]);
+
+    }
 
 
 }

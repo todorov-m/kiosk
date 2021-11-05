@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\SaleContent;
 use App\Models\SaleHead;
 use App\Models\Item;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
@@ -16,7 +17,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 class Newsale extends LivewireDatatable
 {
     public $salesId;
-
+    public $userlevel;
 
 
 
@@ -41,8 +42,16 @@ class Newsale extends LivewireDatatable
             Column::name('quantity')
                 ->label('Кол.'),
             Column::name('linetotal')
-                ->label('Сума')
+                ->label('Сума'),
+
+            Column::callback(['id'], function ($id) {
+            if($this->userlevel > 90) {
+                    return view('sales.action', ['id' => $id, 'salesId' => $this->salesId]);
+                }
+            })->unsortable()
+
         ];
     }
+
 
 }

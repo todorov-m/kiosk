@@ -14,6 +14,34 @@ class SaldoController extends Controller
             ->first();
 
         $shiftsale_sum = SaleHead::where('users_id',auth()->user()->id)
+            ->where('status', '<', 99)
+            ->whereRaw('DATE(created_at) = CURDATE()')
+            ->sum('total');
+
+        return view('sales.shiftsaldo')->with([
+            'shiftstart_sum' => $saldo->shiftstart_sum,
+            'shiftsale_sum' => $shiftsale_sum,
+            'shiftend_sum' => $saldo->shiftend_sum,
+            'shiftstatus'=> $saldo->shiftstatus,
+            'shift_id' => $saldo->id
+        ]);
+
+
+    }
+
+    public function clearsale($salesId){
+
+        SaleHead::where('id', $salesId)
+            ->update([
+                'status' => '99'
+            ]);
+
+        $saldo = Saldo::where('users_id', auth()->user()->id)
+            ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+            ->first();
+
+        $shiftsale_sum = SaleHead::where('users_id',auth()->user()->id)
+            ->where('status',1)
             ->whereRaw('DATE(created_at) = CURDATE()')
             ->sum('total');
 

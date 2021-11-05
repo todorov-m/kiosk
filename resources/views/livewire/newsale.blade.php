@@ -33,7 +33,7 @@
                 </form>
             </div>
             <div class="row">
-                <div class="col-9"><livewire:newsale :salesId="$salesId" /></div>
+                <div class="col-9"><livewire:newsale :salesId="$salesId" :userlevel="auth()->user()->level" /></div>
                 <div class="col-3"><livewire:newsale-total :salesId="$salesId" /></div>
             </div>
 
