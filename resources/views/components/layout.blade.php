@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <title>Laravel</title>
+    <title>POSMaster</title>
     <livewire:styles />
 
     <!-- Fonts -->
@@ -31,7 +31,53 @@
 
     </style>
     <script src="{{ asset('js/cdn.min.js') }}" defer></script>
+    <script src="{{ asset('js/shortcut.js') }}" defer></script>
 
+    <script language="javascript" type="text/javascript">
+        function windowClose() {
+            window.open('','_parent','');
+            window.close();
+        }
+    </script>
+
+    <script type="text/javascript">
+        function init() {
+            shortcut.add("Insert", function() {
+                document.getElementById("SaveSale").click();
+            });
+            shortcut.add("Return", function() {
+                document.getElementById("CloseSale").click();
+            });
+            shortcut.add("f9", function() {
+                document.getElementById("PrintSale").click();
+            });
+            shortcut.add("f10", function() {
+                document.getElementById("Print").click();
+            });
+            shortcut.add("Ctrl+Alt+1", function() {
+                markCalled("ctrlalt1");
+            });
+            shortcut.add("Ctrl+Shift+1", function() {
+                markCalled("ctrlshift1");
+            });
+            shortcut.add("Shift+Alt+1", function() {
+                markCalled("shiftalt1");
+            });
+            shortcut.add("Ctrl+2", function() {
+                markCalled("ctrl2");
+            });
+            shortcut.add("3", function() {
+                markCalled("just3");
+            },{"disable_in_input":true});
+            shortcut.add("Ctrl+a", function() {
+                markCalled("ctrla");
+            },{"propagate":true});
+            shortcut.add("",function() {
+                markCalled("just4");
+            },{"keycode":52});
+        }
+        window.onload=init;
+    </script>
 </head>
 <body>
 <!-- Add Navigation Bar -->

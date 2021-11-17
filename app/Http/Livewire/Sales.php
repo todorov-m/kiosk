@@ -54,6 +54,13 @@ class Sales extends LivewireDatatable
                }
             })->label('Статус'),
 
+            Column::callback(['id','status','total'], function ($id,$status,$total) {
+                if($status ==1) {
+                    return '<a href="/receipt/receipt_' . $id . '.pdf" type="button" class="btn btn-outline-primary" target="_blank">Разписка</a>';
+                }
+            })->label('Разписка'),
+
+
 
         ];
     }

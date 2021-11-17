@@ -12,7 +12,7 @@ class UserController extends Controller
         return view ('users.list',[
 
             'users' => User::where('level','<',5)->get()
-
+//TODO да има 1 superuser и няколко admina, визия за избор на ниво потребител при редактиране
         ]);
     }
 
@@ -64,8 +64,9 @@ class UserController extends Controller
         if(auth()->attempt($request))
         {
             $saldo = Saldo::where('users_id', auth()->user()->id)
-                ->whereRaw('DATE(shiftstart_date) = CURDATE()')
-                ->first();
+               // ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+                   ->where('shiftstatus',0)
+                   ->first();
 
             if (isset($saldo) && $saldo->shiftstatus == '0') {
                 return view('sales.shiftsaldo')->with([
@@ -73,7 +74,8 @@ class UserController extends Controller
                     'shiftsale_sum' => $saldo->shiftsale_sum,
                     'shiftend_sum' => $saldo->shiftend_sum,
                     'shiftstatus'=> $saldo->shiftstatus,
-                    'shift_id' => $saldo->id
+                    'shift_id' => $saldo->id,
+                    'error' => 'Смяната Ви не е приключена!'
                 ]);
 
             }  else {

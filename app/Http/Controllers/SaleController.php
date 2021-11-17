@@ -41,7 +41,18 @@ class SaleController extends Controller
                     'status' => '1',
                     'payd' => floatval($data['payd']),
                     'total' => floatval($total)
+                    //TODO да се добави поле с Дата на създаване на продажбата ( и в базата данни)
                 ]);
+
+            return redirect('/newsales/'.$data['salesId']);
+/* Генериране на ПДФ фай с разписката
+            $sumtax7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                ->where('tax', 7)
+                ->sum('linetotal');
+
+            $sumtax19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                ->where('tax', 19)
+                ->sum('linetotal');
 
             $tax7 = SaleContent::where('sale_heads_id', $data['salesId'])
                 ->where('tax', 7)
@@ -49,25 +60,29 @@ class SaleController extends Controller
             $tax19 = SaleContent::where('sale_heads_id', $data['salesId'])
                 ->where('tax', 19)
                 ->get();
+            $sales = SaleContent::where('sale_heads_id', $data['salesId'])
+                ->get();
 
-            $pdf = PDF::loadView('sales.receipt',['tax7'=>$tax7, 'tax19'=>$tax19])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
+            $pdf = PDF::loadView('sales.receipt',['tax7'=>$tax7, 'tax19'=>$tax19, 'sumtax7'=>$sumtax7, 'sumtax19'=>$sumtax19, 'sales'=>$sales ])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
             $path = public_path('/receipt/'); // <--- folder to store the pdf documents into the server;
             $fileName =  'receipt.pdf' ; // <--giving the random filename,
             $pdf->save(public_path().'/receipt/receipt_'.$data['salesId'].'.pdf');
             $message = '3';
-            //TODO да се отбележе в базата че е печатана разписка
+            */
+
             }
+        else {
 
-        $data['payd'] ='0';
-//TODO проверка за започнало на Смяна
+            $data['payd'] = '0';
 
-        $saleid = SaleHead::create($data)->id;
+            $saleid = SaleHead::create($data)->id;
 
-        return view('livewire.newsale')->with([
-            'salesId' => $saleid,
-            'oldsalesId' => $data['salesId'],
-            'message'=> $message
-        ]);
+            return view('livewire.newsale')->with([
+                'salesId' => $saleid,
+                'oldsalesId' => $data['salesId'],
+                'message' => $message
+            ]);
+        }
 
     }
 
@@ -175,12 +190,13 @@ class SaleController extends Controller
     }
 
     public function listsale($id){
+
         $salehead = SaleHead::find($id);
 
-        $salecontent = SaleContent::where('sales_id', $id);
-dd ($salecontent);
-//TODO Да се довърши изгледа на продажбата
-        return view('sales.listsale', ["heads" => $salehead , "contents" => $salecontent]);
+        $salecontent = SaleContent::where('sale_heads_id', $id)->get();
+
+        return view('sales.listsale', ['heads' => $salehead , 'contents' => $salecontent]);
+        //TODO да се направи възможно печатането на бележка на вече приключила продажба
 
     }
 

@@ -1,4 +1,9 @@
 <x-layout>
+    @if(isset($error))
+    <div class="alert alert-danger" role="alert">
+        {{$error}}
+    </div>
+    @endif
     @if ($shiftstatus == '0')
       <div class="row mx-lg-n5 mt-10">
         <div class="col-sm">

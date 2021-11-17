@@ -3,7 +3,10 @@
          <div class="collapse navbar-collapse" id="navbarsExample07">
              <ul class="navbar-nav mr-auto">
                  <li class="nav-item active">
-                     <a class="nav-link" href="/items">Артикули <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href="/shiftstart">НАЧАЛО <span class="sr-only">(current)</span></a>
+                 </li>
+                 <li class="nav-item active">
+                     <a class="nav-link" href="/items">Артикули</a>
                  </li>
                  <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Продажби</a>

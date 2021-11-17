@@ -79,3 +79,8 @@ Route::get('/sales', function () {
 Route::get('/shiftstart', [SaldoController::class,'index'])->middleware('auth');
 Route::post('/shiftstart', [SaldoController::class,'store'])->middleware('auth');
 Route::put('/shiftend', [SaldoController::class,'shiftend'])->middleware('auth');
+
+//TODO да се направи ДНЕВНО приключване с печат
+//TODO да се направи изглед на смените
+
+//TODO да се направи функционалност за справки

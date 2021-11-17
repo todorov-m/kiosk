@@ -4,7 +4,13 @@
 
     @else
         <div class="row justify-content-center mt-4">
+            <input type="button" value="ЗАТВОРИ!" onclick="windowClose();">
+        </div>
+        <div class="row justify-content-center mt-4">
+
+
             <div class="card" style="width: 30rem;">
+
                 <form class="needs-validation" method="POST" action="/login">
                     @csrf
 

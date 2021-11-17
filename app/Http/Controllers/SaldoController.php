@@ -11,6 +11,7 @@ class SaldoController extends Controller
     public function index(){
         $saldo = Saldo::where('users_id', auth()->user()->id)
             ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+            ->where('shiftstatus',0)
             ->first();
 
         $shiftsale_sum = SaleHead::where('users_id',auth()->user()->id)
