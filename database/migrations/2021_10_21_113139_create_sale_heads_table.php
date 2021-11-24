@@ -14,12 +14,16 @@ class CreateSaleHeadsTable extends Migration
     public function up()
     {
         Schema::create('sale_heads', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
+            $table->date('salesDate');
+            $table->string('saldos_id');
             $table->string('users_id');
             $table->decimal('total', $precision = 6, $scale = 2)->default('0');
             $table->string('status')->default('0');
             $table->string('salesId')->default('0');
+            $table->integer('objectId')->default('1');
             $table->decimal('payd', $precision = 6, $scale = 2)->default('0');
+            $table->decimal('resto', $precision = 6, $scale = 2)->default('0');
             $table->timestamps();
         });
     }

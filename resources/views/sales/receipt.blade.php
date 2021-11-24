@@ -151,7 +151,7 @@
 
     </style>
 <div class="d-flex justify-content-center">
-       <button id="Print" class="hidden-print btn btn-primary" data-dismiss="modal">Print</button>
+       <button id="Print" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" data-dismiss="modal">Print</button>
 </div>
 <div class="ticket ml-2 mt-5 mb-5" id="printThis">
      <p class="centered">K C

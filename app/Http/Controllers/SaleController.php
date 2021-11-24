@@ -14,10 +14,15 @@ class SaleController extends Controller
 {
     public function getsale($salesId){
         $message = 1;
+        $sale = SaleHead::where('id', $salesId)->first();
+
         return view('livewire.newsale')->with([
             'salesId' => $salesId,
+            'salesDate' => $sale->salesDate,
             'oldsalesId' => $salesId,
-            'message'=> $message
+            'shift_id' => $sale->saldos_id,
+            'message'=> $message,
+            'status' => $sale->status
         ]);
 
     }
@@ -25,13 +30,15 @@ class SaleController extends Controller
     # Заглавна част на продажбата
     public function store(){
        $message = '1';
+       $request = request();
 
         $data = request()->validate([
             'users_id' => 'required',
             'total' => 'required',
             'status' => 'required',
             'salesId' => 'required',
-            'payd' => ''
+            'saldos_id' => 'required',
+            'salesDate'=> ''
         ]);
 
         if($data['salesId']>'0'){
@@ -39,9 +46,7 @@ class SaleController extends Controller
             SaleHead::where('id', $data['salesId'])
                 ->update([
                     'status' => '1',
-                    'payd' => floatval($data['payd']),
                     'total' => floatval($total)
-                    //TODO да се добави поле с Дата на създаване на продажбата ( и в базата данни)
                 ]);
 
             return redirect('/newsales/'.$data['salesId']);
@@ -74,13 +79,16 @@ class SaleController extends Controller
         else {
 
             $data['payd'] = '0';
+            $data['salesDate'] = date('Y-m-d');
 
             $saleid = SaleHead::create($data)->id;
 
             return view('livewire.newsale')->with([
                 'salesId' => $saleid,
+                'shift_id' => $data['saldos_id'],
                 'oldsalesId' => $data['salesId'],
-                'message' => $message
+                'message' => $message,
+                'status' => 0
             ]);
         }
 
@@ -104,7 +112,8 @@ class SaleController extends Controller
             ]);
         } else {
 
-            $item = Item::where('ean', $data['ean'])->first();
+            $item = \DB::table('items')->where('ean', $data['ean'])->first();
+           // $item = Item::where('ean', $data['ean'])->first();
 
             $saleitem = SaleContent::where('items_id', $item->id)->where('sale_heads_id', $data['salesId'])->first();
 
@@ -122,10 +131,14 @@ class SaleController extends Controller
                 //Нов Тотал на документа
                 $total = SaleContent::where('sale_heads_id', $data['salesId'])
                     ->sum('linetotal');
+                $headtotal = SaleHead::where('id', $data['salesId'])->first();
+
+                $resto = $headtotal->payd - $total;
 
                 SaleHead::where('id', $data['salesId'])
                     ->update([
-                        'total' => $total
+                        'total' => $total,
+                        'resto' => $resto
                     ]);
 
             }
@@ -141,6 +154,7 @@ class SaleController extends Controller
                     'tax' => $item->tax,
                     'quantity' => $data['quantity'],
                     'single_price' => $item->sale_price,
+                    'single_delivery_price' => $item->delivery_price,
                     'linetotal' => $linetotal
 
                 ]);
@@ -148,16 +162,20 @@ class SaleController extends Controller
                 //Нов Тотал на документа
                 $total = SaleContent::where('sale_heads_id', $data['salesId'])
                     ->sum('linetotal');
+                $headtotal = SaleHead::where('id', $data['salesId'])->first();
 
+                $resto = $headtotal->payd - $total;
                 SaleHead::where('id', $data['salesId'])
                     ->update([
-                        'total' => $total
+                        'total' => $total,
+                        'resto' => $resto
                     ]);
             }
 
             return view('livewire.newsale')->with([
                 'salesId' => $data['salesId'],
-                'message'=> '1'
+                'message'=> '1',
+                'status' => $headtotal->status
             ]);
         }
     }
@@ -178,10 +196,13 @@ class SaleController extends Controller
         //Нов Тотал на документа
         $total = SaleContent::where('sale_heads_id', $data['salesId'])
             ->sum('linetotal');
+        $headtotal = SaleHead::where('id', $data['salesId'])->first();
 
+        $resto = $headtotal->payd - $total;
         SaleHead::where('id', $data['salesId'])
             ->update([
-                'total' => $total
+                'total' => $total,
+                'resto' => $resto
             ]);
 
        return redirect('newsales/'.$salesId)->with('success', 'Успешно изтрит ред!');
@@ -196,7 +217,26 @@ class SaleController extends Controller
         $salecontent = SaleContent::where('sale_heads_id', $id)->get();
 
         return view('sales.listsale', ['heads' => $salehead , 'contents' => $salecontent]);
-        //TODO да се направи възможно печатането на бележка на вече приключила продажба
+
+    }
+
+    public function custompayd()
+    {
+
+        $data = request()->validate([
+            'payd' => 'required',
+            'salesId' => 'required'
+        ]);
+
+        $sales=SaleHead::where('id', $data['salesId'])->first();
+        $resto = $data['payd'] - $sales->total;
+
+        SaleHead::where('id', $data['salesId'])
+            ->update([
+                'payd' => $data['payd'],
+                'resto' => $resto
+            ]);
+        return redirect('/newsales/'.$data['salesId']);
 
     }
 

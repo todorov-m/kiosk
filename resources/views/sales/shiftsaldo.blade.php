@@ -5,7 +5,7 @@
     </div>
     @endif
     @if ($shiftstatus == '0')
-      <div class="row mx-lg-n5 mt-10">
+      <div class="row mx-lg-n3 mt-10">
         <div class="col-sm">
             <div class="h1 total-label">Начално Салдо</div>
             <div class="h1 total-label alert alert-danger ml-auto mr-auto pt-3 pb-3"> {{ $shiftstart_sum }} </div>
@@ -29,9 +29,11 @@
                         <form id="new-sale" action="/newsales" method="POST"
                               style="display: none;">
                             <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
+                            <input type="hidden" name="saldos_id" value="{{ $shift_id }}">
                             <input type="hidden" name="total" value="0">
                             <input type="hidden" name="status" value="0">
                             <input type="hidden" name="salesId" value="0">
+
                             @csrf
                         </form>
 

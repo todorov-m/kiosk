@@ -2,7 +2,7 @@
 
 <div class="{{$class}}">
     <label for="{{$name}}" class="form-label">{{$title}}</label>
-    <input class="form-control"
+    <input class="form-control form-control-lg"
            name="{{$name}}"
            id="{{$name}}"
            type="{{$type}}"

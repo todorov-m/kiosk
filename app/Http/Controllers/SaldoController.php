@@ -10,24 +10,29 @@ class SaldoController extends Controller
 {
     public function index(){
         $saldo = Saldo::where('users_id', auth()->user()->id)
-            ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+           // ->whereRaw('DATE(shiftstart_date) = CURDATE()')
             ->where('shiftstatus',0)
             ->first();
+        if (!$saldo){
+            return view('sales.startshift');
 
-        $shiftsale_sum = SaleHead::where('users_id',auth()->user()->id)
-            ->where('status', '<', 99)
-            ->whereRaw('DATE(created_at) = CURDATE()')
-            ->sum('total');
+        } else {
 
-        return view('sales.shiftsaldo')->with([
-            'shiftstart_sum' => $saldo->shiftstart_sum,
-            'shiftsale_sum' => $shiftsale_sum,
-            'shiftend_sum' => $saldo->shiftend_sum,
-            'shiftstatus'=> $saldo->shiftstatus,
-            'shift_id' => $saldo->id
-        ]);
+            $shiftsale_sum = SaleHead::where('users_id', auth()->user()->id)
+                ->where('status', '<', 99)
+                ->where('saldos_id', $saldo->id)
+                // ->whereRaw('DATE(created_at) = CURDATE()')
+                ->sum('total');
 
+            return view('sales.shiftsaldo')->with([
+                'shiftstart_sum' => $saldo->shiftstart_sum,
+                'shiftsale_sum' => $shiftsale_sum,
+                'shiftend_sum' => $saldo->shiftend_sum,
+                'shiftstatus' => $saldo->shiftstatus,
+                'shift_id' => $saldo->id
+            ]);
 
+        }
     }
 
     public function clearsale($salesId){
@@ -38,12 +43,13 @@ class SaldoController extends Controller
             ]);
 
         $saldo = Saldo::where('users_id', auth()->user()->id)
-            ->whereRaw('DATE(shiftstart_date) = CURDATE()')
+            ->where('shiftstatus',0)
             ->first();
 
         $shiftsale_sum = SaleHead::where('users_id',auth()->user()->id)
             ->where('status',1)
-            ->whereRaw('DATE(created_at) = CURDATE()')
+            ->where('saldos_id', $saldo->id)
+           // ->whereRaw('DATE(created_at) = CURDATE()')
             ->sum('total');
 
         return view('sales.shiftsaldo')->with([

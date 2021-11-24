@@ -64,6 +64,8 @@ Route::get('/listsales', function (){
 
 # Показване на съдържанието на продажбата
 Route::get('/sale/{id}',[SaleController::class,'listsale'])->middleware('auth');
+# Запис на Платена от клиента сума
+Route::post('/custompayd',[SaleController::class,'custompayd'])->middleware('auth');
 
 #Форма за НОва продажба
 Route::get('/sale', function () {
@@ -81,6 +83,5 @@ Route::post('/shiftstart', [SaldoController::class,'store'])->middleware('auth')
 Route::put('/shiftend', [SaldoController::class,'shiftend'])->middleware('auth');
 
 //TODO да се направи ДНЕВНО приключване с печат
-//TODO да се направи изглед на смените
 
 //TODO да се направи функционалност за справки

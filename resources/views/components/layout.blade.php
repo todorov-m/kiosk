@@ -45,7 +45,7 @@
             shortcut.add("Insert", function() {
                 document.getElementById("SaveSale").click();
             });
-            shortcut.add("Return", function() {
+            shortcut.add("Delete", function() {
                 document.getElementById("CloseSale").click();
             });
             shortcut.add("f9", function() {
@@ -81,13 +81,17 @@
 </head>
 <body>
 <!-- Add Navigation Bar -->
-@auth
-
-<x-navbar/>
-@endauth
 
 
 <main class="container">
+    @auth
+        @if (Request::is('newsales/*') OR Request::is('newsales'))
+
+        @else
+            <x-navbar/>
+            @endif
+
+    @endauth
     <div class="mt-2">
     <x-messages/>
     </div>

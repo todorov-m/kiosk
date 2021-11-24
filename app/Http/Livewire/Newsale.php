@@ -23,9 +23,9 @@ class Newsale extends LivewireDatatable
 
     public function builder()
     {
-        return SaleContent::query()
-        ->where('sale_heads_id', $this->salesId)
-        ->orderBy('id', 'desc');
+        return SaleContent::query()->leftJoin('sale_heads', 'sale_heads.id', 'sale_contents.sale_heads_id')
+        ->where('sale_contents.sale_heads_id', $this->salesId)
+        ->orderBy('sale_contents.id', 'desc');
 
     }
 
@@ -44,8 +44,8 @@ class Newsale extends LivewireDatatable
             Column::name('linetotal')
                 ->label('Сума'),
 
-            Column::callback(['id'], function ($id) {
-            if($this->userlevel > 90) {
+            Column::callback(['id','sale_heads.status'], function ($id,$status) {
+            if($this->userlevel > 90 and $status < 1) {
                     return view('sales.action', ['id' => $id, 'salesId' => $this->salesId]);
                 }
             })->unsortable()

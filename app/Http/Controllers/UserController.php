@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Saldo;
+use App\Models\SaleContent;
+use App\Models\SaleHead;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -69,9 +71,10 @@ class UserController extends Controller
                    ->first();
 
             if (isset($saldo) && $saldo->shiftstatus == '0') {
+                $shiftsale_sum=SaleHead::where('saldos_id',$saldo->id)->sum('total');
                 return view('sales.shiftsaldo')->with([
                     'shiftstart_sum' => $saldo->shiftstart_sum,
-                    'shiftsale_sum' => $saldo->shiftsale_sum,
+                    'shiftsale_sum' => $shiftsale_sum,
                     'shiftend_sum' => $saldo->shiftend_sum,
                     'shiftstatus'=> $saldo->shiftstatus,
                     'shift_id' => $saldo->id,

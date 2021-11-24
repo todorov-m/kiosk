@@ -16,7 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('ean');
+            $table->string('ean')->index();
             $table->decimal('delivery_price', $precision = 6, $scale = 2);
             $table->decimal('sale_price', $precision = 6, $scale = 2);
             $table->string('tax');

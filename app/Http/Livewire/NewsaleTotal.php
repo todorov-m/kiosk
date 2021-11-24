@@ -10,7 +10,7 @@ class NewsaleTotal extends Component
 {
     public $salesId;
     public $total = '';
-    public $payd = '0';
+    //public $payd = '0';
     public $resto = '';
     public $status = '';
     public $startsale = '';
@@ -44,10 +44,7 @@ class NewsaleTotal extends Component
        $this->startsale = $sale->created_at;
        $this->endsale = $sale->updated_at;
 
-       if($this->payd >= '0') {
-           $this->resto = $this->payd - $this->total;
-       }
-        return view('livewire.newsale-total', ['sales' => $content, 'tax7'=>$tax7, 'tax19'=>$tax19, 'sumtax7'=>$sumtax7, 'sumtax19'=>$sumtax19, 'hea' ]);
+       return view('livewire.newsale-total', ['sales' => $content, 'tax7'=>$tax7, 'tax19'=>$tax19, 'sumtax7'=>$sumtax7, 'sumtax19'=>$sumtax19, 'head'=>$sale ]);
     }
     public function saleSave($salesId, $userId) {
 
