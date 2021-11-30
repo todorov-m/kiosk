@@ -108,7 +108,8 @@ class SaleController extends Controller
         if ($validator->fails()) {
             return view('livewire.newsale')->with([
                 'salesId' => $data['salesId'],
-                'message'=> '0'
+                'message'=> '0',
+                'status' => '0'
             ]);
         } else {
 
@@ -129,6 +130,14 @@ class SaleController extends Controller
                         'linetotal' => $saleitem->linetotal
                     ]);
                 //Нов Тотал на документа
+                $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                    ->where('tax', 7)
+                    ->sum('linetotal');
+
+                $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                    ->where('tax', 19)
+                    ->sum('linetotal');
+
                 $total = SaleContent::where('sale_heads_id', $data['salesId'])
                     ->sum('linetotal');
                 $headtotal = SaleHead::where('id', $data['salesId'])->first();
@@ -138,6 +147,8 @@ class SaleController extends Controller
                 SaleHead::where('id', $data['salesId'])
                     ->update([
                         'total' => $total,
+                        'total_7' => $total_7,
+                        'total_19' => $total_19,
                         'resto' => $resto
                     ]);
 
@@ -160,6 +171,14 @@ class SaleController extends Controller
                 ]);
 
                 //Нов Тотал на документа
+                $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                    ->where('tax', 7)
+                    ->sum('linetotal');
+
+                $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                    ->where('tax', 19)
+                    ->sum('linetotal');
+
                 $total = SaleContent::where('sale_heads_id', $data['salesId'])
                     ->sum('linetotal');
                 $headtotal = SaleHead::where('id', $data['salesId'])->first();
@@ -168,6 +187,8 @@ class SaleController extends Controller
                 SaleHead::where('id', $data['salesId'])
                     ->update([
                         'total' => $total,
+                        'total_7' => $total_7,
+                        'total_19' => $total_19,
                         'resto' => $resto
                     ]);
             }
@@ -194,14 +215,25 @@ class SaleController extends Controller
         SaleContent::destroy($data['recordId']);
 
         //Нов Тотал на документа
+        $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
+            ->where('tax', 7)
+            ->sum('linetotal');
+
+        $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
+            ->where('tax', 19)
+            ->sum('linetotal');
+
         $total = SaleContent::where('sale_heads_id', $data['salesId'])
             ->sum('linetotal');
+
         $headtotal = SaleHead::where('id', $data['salesId'])->first();
 
         $resto = $headtotal->payd - $total;
         SaleHead::where('id', $data['salesId'])
             ->update([
                 'total' => $total,
+                'total_7' => $total_7,
+                'total_19' => $total_19,
                 'resto' => $resto
             ]);
 

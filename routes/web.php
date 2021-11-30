@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DailyCloseController;
 use App\Http\Controllers\SaldoController;
 use App\Models\SaleContent;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +83,26 @@ Route::get('/shiftstart', [SaldoController::class,'index'])->middleware('auth');
 Route::post('/shiftstart', [SaldoController::class,'store'])->middleware('auth');
 Route::put('/shiftend', [SaldoController::class,'shiftend'])->middleware('auth');
 
-//TODO да се направи ДНЕВНО приключване с печат
+#Дневен Отчет
+Route::post('/dailyclose', [DailyCloseController::class,'create'])->middleware('auth');
 
-//TODO да се направи функционалност за справки
+
+#Справки
+Route::get('/reports', function () {
+    return view('reports.reports');
+})->middleware('auth');
+
+Route::get('/shifts', function () {
+    return view('livewire.shifts');
+})->middleware('auth');
+
+Route::get('/dailyclose', function () {
+    return view('reports.dailyclose');
+})->middleware('auth');
+
+
+//TODO Касиер да може да трие ред по време на продажбата
+
+//TODO Админ да може да редактира продажба след като е приключена
+
+//TODO Админ да може да трие продажба

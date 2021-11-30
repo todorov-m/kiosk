@@ -93,13 +93,12 @@ class SaldoController extends Controller
             'shiftsale_sum' => 'required',
             'shiftend_sum' => 'required'
         ]);
-        $shiftend_date = date('Y-m-d H:i:s');;
+
         Saldo::where('id', $data['shift_id'])
             ->update([
                 'shiftstatus' => '1',
                 'shiftsale_sum' => floatval($data['shiftsale_sum']),
-                'shiftend_sum' => floatval($data['shiftend_sum']),
-                'shiftend_date' => $shiftend_date
+                'shiftend_sum' => floatval($data['shiftend_sum'])
             ]);
         return view('sales.startshift');
     }

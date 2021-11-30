@@ -52,5 +52,8 @@ class User extends Authenticatable
         return $this->hasMany(SaleHead::class);
     }
 
-
+    public function saldo()
+    {
+        return $this->hasMany(Saldo::class);
+    }
 }

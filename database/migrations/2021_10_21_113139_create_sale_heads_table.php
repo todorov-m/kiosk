@@ -19,6 +19,8 @@ class CreateSaleHeadsTable extends Migration
             $table->string('saldos_id');
             $table->string('users_id');
             $table->decimal('total', $precision = 6, $scale = 2)->default('0');
+            $table->decimal('total_7', $precision = 6, $scale = 2)->default('0');
+            $table->decimal('total_19', $precision = 6, $scale = 2)->default('0');
             $table->string('status')->default('0');
             $table->string('salesId')->default('0');
             $table->integer('objectId')->default('1');

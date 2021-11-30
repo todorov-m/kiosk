@@ -15,12 +15,12 @@ class CreateDailyClosesTable extends Migration
     {
         Schema::create('daily_closes', function (Blueprint $table) {
             $table->id();
-            $table->date('daily_close_date');
+            $table->date('daily_close_date')->useCurrent();;
             $table->string('daily_close_status');
             $table->string('users_id');
             $table->decimal('daily_close_total', $precision = 6, $scale = 2)->default('0.00');
-            $table->decimal('total_7', $precision = 6, $scale = 2)->default('0.00');
-            $table->decimal('total_19', $precision = 6, $scale = 2)->default('0.00');
+            $table->decimal('daily_close_total_7', $precision = 6, $scale = 2)->default('0.00');
+            $table->decimal('daily_close_total_19', $precision = 6, $scale = 2)->default('0.00');
             $table->timestamps();
         });
     }

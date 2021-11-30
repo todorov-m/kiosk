@@ -11,7 +11,7 @@
             @if($head->status == 1)
                 <div class="h1 total-label alert alert-secondary ml-auto mr-auto pt-3 pb-3"> {{ $head->payd }} </div>
 @else
-                <a role="button" class="btn btn-outline-secondary btn-lg btn-block pt-2 pb-2 total-size" data-toggle="modal" data-target="#payment" data-backdrop="static" data-keyboard="false" id="PrintSale">{{ $head->payd }}</a>
+                <a role="button" class="btn btn-outline-secondary btn-lg btn-block pt-2 pb-2 total-size" data-toggle="modal" data-target="#payment"  data-keyboard="false" id="PrintSale">{{ $head->payd }}</a>
 @endif
 
             <!-- Modal Receipt-->
@@ -98,7 +98,7 @@
     @if($status == 0)
     <div class="col-md-12">
         <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size" href="/newsales" id="SaveSale" onclick="event.preventDefault();
-                                                     document.getElementById('saleSave').submit();">>>ЗАПИС<<</a>
+                                                     document.getElementById('saleSave').submit();">ЗАПИС</a>
         <form id="saleSave" action="/newsales" method="POST"
               style="display: none;">
             <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
@@ -112,12 +112,12 @@
     </div>
 
         <div class="col-md-12">
-            <a role="button" class="btn btn-danger btn-lg btn-block pt-4 pb-4 total-size mt-5" href="/clearsale/{{ $salesId }}" id="CloseSale" > >>ОТКАЗ<< </a>
+            <a role="button" class="btn btn-danger btn-lg btn-block pt-4 pb-4 total-size mt-3" href="/clearsale/{{ $salesId }}" id="CloseSale" > ОТКАЗ </a>
 
         </div>
     @else
         <div class="col-md-12">
-            <a role="button" class="btn btn-primary btn-lg btn-block pt-4 pb-4 total-size" data-toggle="modal" data-target="#receiptPrint" data-backdrop="static" data-keyboard="false" id="PrintSale"> >>ПРИНТ<< </a>
+            <a role="button" class="btn btn-primary btn-lg btn-block pt-4 pb-4 total-size" data-toggle="modal" data-target="#receiptPrint" data-backdrop="static" data-keyboard="false" id="PrintSale"> ПРИНТ </a>
         </div>
 
         <!-- Modal Receipt-->
@@ -139,7 +139,7 @@
 
         <div class="col-md-12">
             <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size mt-5" href="/newsales" onclick="event.preventDefault();
-                                                     document.getElementById('new-sale').submit();">>>НОВА<<</a>
+                                                     document.getElementById('new-sale').submit();">НОВА</a>
             <form id="new-sale" action="/newsales" method="POST"
                   style="display: none;">
                 <input type="hidden" name="users_id" value="{{auth()->user()->id}}">

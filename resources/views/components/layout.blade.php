@@ -83,7 +83,7 @@
 <!-- Add Navigation Bar -->
 
 
-<main class="container">
+<main class="container-fluid">
     @auth
         @if (Request::is('newsales/*') OR Request::is('newsales'))
 

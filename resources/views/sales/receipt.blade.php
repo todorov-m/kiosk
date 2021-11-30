@@ -36,6 +36,7 @@
                width: 100mm;
                max-width: 100mm;
                page-break-inside: avoid;
+               color:black;
            }
            td.description,
            th.description {
@@ -43,7 +44,7 @@
                max-width: 70mm;
                text-align: left;
                font-size: 16px;
-           }
+               }
 
            td.quantity,
            th.quantity {

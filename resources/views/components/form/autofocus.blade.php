@@ -8,6 +8,7 @@
            type="{{$type}}"
            required
            autofocus
+        {{$attributes(['value'=>old($name)]) }}
            >
     <div class="invalid-feedback">
         Valid first name is required.
