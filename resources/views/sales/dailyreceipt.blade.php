@@ -7,6 +7,7 @@
     @media print {
         body * {
             visibility:hidden;
+            color:black;
         }
         #printSection, #printSection * {
             visibility:visible;
@@ -40,8 +41,8 @@
     }
     td.description,
     th.description {
-        width: 70mm;
-        max-width: 70mm;
+        width: 50mm;
+        max-width: 50mm;
         text-align: left;
         font-size: 16px;
     }
@@ -56,8 +57,6 @@
 
     td.price,
     th.price {
-        width: 20mm;
-        max-width: 20mm;
         word-break: break-all;
         text-align: right;
         font-size: 16px;
@@ -163,78 +162,228 @@
     <table>
         <tbody>
         <tr>
-            <td class="reg">REG</td>
-            <td class="reg-data">{{$startsale}}</td>
+            <td class="description">Z</td>
+            <td class="price">{{$close_create_date}}</td>
         </tr>
         <tr>
-            <td class="reg">BED</td>
-            <td class="reg-data">00{{auth()->user()->id}} </td>
+            <td class="description">BED. 1</td>
+            <td class="price">00{{auth()->user()->id}} </td>
         </tr>
-        </tbody>
-    </table>
-    <br>
-    <table>
-        <tbody>
-        @foreach($sales as $sale)
-            <tr>
-                <td class="description">{{$sale->name}}</td>
-                <td class="quantity">x{{$sale->quantity}}</td>
-                <td class="price">&euro; {{$sale->linetotal}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-    <table class="table-centered ml-auto mr-auto">
-        <tbody>
+         <tr>
+           <td colspan="2" class="reg-data">-------------------------------------------------------------</td>
+        </tr>
         <tr>
-            <td class="tax-name"></td>
-            <td class="tax-price">2 ST</td>
+            <td class="reg">Z</td>
+            <td class="reg-data" style="text-align: left;">TÄGLICH Z</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="reg">Z</td>
+            <td class="reg-data" style="text-align: left;">FINANZEN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0056</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data" style="text-align: left;"></td>
+        </tr>
+        <tr>
+            <td class="description">BRUTTO</td>
+            <td class="price">{{$daily_item_count_7 + $daily_item_count_19}}</td>
+        </tr>
+        <tr>
+            <td class="description"></td>
+            <td class="price">&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td class="description">NETTO</td>
+            <td class="price">No &nbsp;&nbsp;{{$daily_sales_count}}</td>
+        </tr>
+        <tr>
+            <td class="description"></td>
+            <td class="price">&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td class="description">BAR/LADE</td>
+            <td class="price">&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td class="description">KREDIT/LADE</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">SCHECK/LADE</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">KRE/LADE(1)</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">KRE/LADE(2)</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">KRE/LADE(3)</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">KRE/LADE(4)</td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="description">RETOURE - SCHL</td>
+            <td class="price" >No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+        <tr>
+            <td class="description"></td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="description">KUNDEN</td>
+            <td class="price" >KU &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$daily_sales_count}}</td>
+        </tr>
+        <tr>
+            <td class="description">BONSTORNO</td>
+            <td class="price" >No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+        <tr>
+            <td class="description"></td>
+            <td class="price">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
         </tr>
         <tr>
             <td class="tax-name">NETTO  19%</td>
-            <td class="tax-price">&euro; {{number_format($sumtax19-(($sumtax19*19)/(100+19)), 2)}}</td>
+            <td class="tax-price">&euro; {{number_format($daily_close_total_19-(($daily_close_total_19*19)/(100+19)), 2)}}</td>
         </tr>
         <tr>
             <td class="tax-name">MWST  19% </td>
-            <td class="tax-price">&euro; {{number_format(($sumtax19*19)/(100+19), 2)}}</td>
+            <td class="tax-price">&euro; {{number_format(($daily_close_total_19*19)/(100+19), 2)}}</td>
+        </tr>
+        <tr>
+            <td class="tax-name">BRUTTO  19% </td>
+            <td class="tax-price">&euro; {{$daily_close_total_19}}</td>
         </tr>
         <tr>
             <td class="tax-name">NETTO  7%</td>
-            <td class="tax-price">&euro; {{number_format($sumtax7-(($sumtax7*7)/(100+7)), 2)}}</td>
+            <td class="tax-price">&euro; {{number_format($daily_close_total_7-(($daily_close_total_7*7)/(100+7)), 2)}}</td>
         </tr>
         <tr>
             <td class="tax-name">MWST  7% </td>
-            <td class="tax-price">&euro; {{number_format(($sumtax7*7)/(100+7), 2)}}</td>
+            <td class="tax-price">&euro; {{number_format(($daily_close_total_7*7)/(100+7), 2)}}</td>
         </tr>
         <tr>
-            <td class="tax-name">TOTAL </td>
-            <td class="total">&euro;{{$sumtax7+$sumtax19}} </td>
-
+            <td class="tax-name">BRUTTO  7% </td>
+            <td class="tax-price">&euro; {{$daily_close_total_7}}</td>
         </tr>
         <tr>
-            <td class="tax-name">BAR </td>
-            <td class="bar">&euro;{{$sumtax7+$sumtax19}} </td>
-
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="reg">Z</td>
+            <td class="reg-data" style="text-align: left;">FUNKTIONEN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0056</td>
+        </tr>
+        <tr>
+            <td class="reg">BAR</td>
+            <td class="reg-data" style="text-align: left;">No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$daily_sales_count}}</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data" >&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td class="reg">RETOURE</td>
+            <td class="reg-data" style="text-align: left;">No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="reg">STORNO</td>
+            <td class="reg-data" style="text-align: left;">No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td class="reg">KEIN VERKAUF</td>
+            <td class="reg-data" style="text-align: left;">No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="reg">Z</td>
+            <td class="reg-data" style="text-align: left;">WARENGRUPPEN &nbsp;&nbsp;&nbsp;&nbsp;0056</td>
+        </tr>
+        <tr>
+            <td class="reg">Artikel 7%</td>
+            <td class="reg-data" style="text-align: left;">{{$daily_item_count_7}}</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; {{$daily_close_total_7}}</td>
+        </tr>
+        <tr>
+            <td class="reg">Artikel 19%</td>
+            <td class="reg-data" style="text-align: left;">{{$daily_item_count_19}}</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; {{$daily_close_total_19}}</td>
+        </tr>
+        <tr>
+            <td class="reg">Artikel 19%</td>
+            <td class="reg-data" style="text-align: left;">{{$daily_item_count_19}}</td>
+        </tr>
+        <tr>
+            <td class="reg">Artikel 0%</td>
+            <td class="reg-data">&euro; 0.00</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="reg">TOTAL</td>
+            <td class="reg-data" style="text-align: left;">{{$daily_item_count_7 + $daily_item_count_19}}</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
+        </tr>
+        <tr>
+            <td class="reg">KEIN VERKAUF</td>
+            <td class="reg-data" style="text-align: left;">BEDIENER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0056</td>
+        </tr>
+        <tr>
+            <td class="description">BED. 1</td>
+            <td class="price">...............{{auth()->user()->id}} </td>
+        </tr>
+        <tr>
+            <td class="description">NETTO</td>
+            <td class="price">No &nbsp;&nbsp;{{$daily_sales_count}}</td>
+        </tr>
+        <tr>
+            <td class="reg"></td>
+            <td class="reg-data">&euro; {{$daily_close_total}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="reg-data" >-------------------------------------------------------------</td>
         </tr>
         </tbody>
     </table>
-    <br>
-    <table>
-        <tbody>
-        <tr>
-            <td class="time-title">Trans Nr:</td>
-            <td class="time-data">{{ $salesId }}</td>
-        </tr>
-        <tr>
-            <td class="time-title">Startzeit:</td>
-            <td class="time-data">{{$startsale}}.000Z</td>
-        </tr>
-        <tr>
-            <td class="time-title">Endzeit:</td>
-            <td class="time-data">{{$endsale}}.000Z</td>
-        </tr>
-        </tbody>
-    </table>
+
+
     <br>
     <p class="centered">Vieten Dank
         <br>für Theren Besuch!

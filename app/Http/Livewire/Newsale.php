@@ -39,13 +39,18 @@ class Newsale extends LivewireDatatable
             Column::name('name')->label('Име'),
             Column::name('single_price')
                 ->label('Ед. цена'),
-            Column::name('quantity')
-                ->label('Кол.'),
+            Column::callback(['quantity'], function ($quantity) {
+                return '<p class="h2">'.$quantity.'</p>';
+            })->label('Кол.'),
+
             Column::name('linetotal')
                 ->label('Сума'),
 
             Column::callback(['id','sale_heads.status'], function ($id,$status) {
-            if($this->userlevel > 90 and $status < 1) {
+            if($status < 1) {
+                    return view('sales.action', ['id' => $id, 'salesId' => $this->salesId]);
+                }
+                if($this->userlevel > 90 and $status == 1) {
                     return view('sales.action', ['id' => $id, 'salesId' => $this->salesId]);
                 }
             })->unsortable()

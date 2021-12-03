@@ -17,9 +17,16 @@ class Sales extends LivewireDatatable
 {
     public function builder()
     {
-        return SaleHead::query()
-            ->where('status','<', 99)
-            ->orderBy('id', 'desc');
+       if(auth()->user()->level > 90) {
+           return SaleHead::query()
+               ->where('status', '<', 99)
+               ->orderBy('id', 'desc');
+       } else {
+           return SaleHead::query()
+               ->where('status', '<', 99)
+               ->where('users_id',auth()->user()->id)
+               ->orderBy('id', 'desc');
+       }
 
     }
 

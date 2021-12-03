@@ -40,44 +40,7 @@
         }
     </script>
 
-    <script type="text/javascript">
-        function init() {
-            shortcut.add("Insert", function() {
-                document.getElementById("SaveSale").click();
-            });
-            shortcut.add("Delete", function() {
-                document.getElementById("CloseSale").click();
-            });
-            shortcut.add("f9", function() {
-                document.getElementById("PrintSale").click();
-            });
-            shortcut.add("f10", function() {
-                document.getElementById("Print").click();
-            });
-            shortcut.add("Ctrl+Alt+1", function() {
-                markCalled("ctrlalt1");
-            });
-            shortcut.add("Ctrl+Shift+1", function() {
-                markCalled("ctrlshift1");
-            });
-            shortcut.add("Shift+Alt+1", function() {
-                markCalled("shiftalt1");
-            });
-            shortcut.add("Ctrl+2", function() {
-                markCalled("ctrl2");
-            });
-            shortcut.add("3", function() {
-                markCalled("just3");
-            },{"disable_in_input":true});
-            shortcut.add("Ctrl+a", function() {
-                markCalled("ctrla");
-            },{"propagate":true});
-            shortcut.add("",function() {
-                markCalled("just4");
-            },{"keycode":52});
-        }
-        window.onload=init;
-    </script>
+
 </head>
 <body>
 <!-- Add Navigation Bar -->
@@ -85,7 +48,7 @@
 
 <main class="container-fluid">
     @auth
-        @if (Request::is('newsales/*') OR Request::is('newsales'))
+        @if (Request::is('newsales') AND auth()->user()->level < 90)
 
         @else
             <x-navbar/>
@@ -100,6 +63,23 @@
 </main>
 <x-footer/>
 <livewire:scripts />
+<script type="text/javascript">
+    function init() {
+        shortcut.add("Insert", function() {
+            document.getElementById("SaveSale").click();
+        });
+        shortcut.add("Delete", function() {
+            document.getElementById("CloseSale").click();
+        });
+        shortcut.add("f9", function() {
+            document.getElementById("PrintSale").click();
+        });
+        shortcut.add("f10", function() {
+            document.getElementById("Print").click();
+        });
+    }
+    window.onload=init;
+</script>
 
 </body>
 

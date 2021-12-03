@@ -1,7 +1,7 @@
 <div class="row justify-content-md-center">
 
      <div class="col-md-12">
-         <div class="h1 total-label">Тотал</div>
+         <div class="h1 total-label">№ {{ $salesId }}  Тотал</div>
          <div class="h1 total-label alert alert-success ml-auto mr-auto pt-3 pb-3"> {{ $total }} </div>
         </div>
 
@@ -138,7 +138,7 @@
         </div>
 
         <div class="col-md-12">
-            <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size mt-5" href="/newsales" onclick="event.preventDefault();
+            <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size mt-3" href="/newsales" onclick="event.preventDefault();
                                                      document.getElementById('new-sale').submit();">НОВА</a>
             <form id="new-sale" action="/newsales" method="POST"
                   style="display: none;">

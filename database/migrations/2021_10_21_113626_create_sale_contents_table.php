@@ -16,7 +16,7 @@ class CreateSaleContentsTable extends Migration
         Schema::create('sale_contents', function (Blueprint $table) {
             $table->id();
             $table->string('sale_heads_id')->index();
-            $table->string('items_id');
+            $table->string('items_id')->index();
             $table->string('ean')->index();
             $table->string('name');
             $table->string('tax');

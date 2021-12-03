@@ -1,8 +1,11 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-     @if (Request::path() != 'shiftend' && auth()->user()->level > 90)
-    <a type="button" class="btn btn-outline-primary mr-5" href="/shiftstart">НАЧАЛО </a>
+     @if (Request::path() != 'shiftend')
+       <a type="button" class="btn btn-outline-primary mr-5" href="/shiftstart">НАЧАЛО </a>
+    @if (auth()->user()->level > 10)
+            <a type="button" class="btn btn-outline-primary mr-5" href="/items">АРТИКУЛИ</a>
+        @endif
         <a type="button" class="btn btn-outline-primary" href="/reports">СПРАВКИ</a>
-    @endif
+       @endif
     @auth
 
 @if(auth()->user()->level > 10)

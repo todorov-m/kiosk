@@ -1,28 +1,10 @@
 <x-layout>
     <div class="card mb-4 rounded-3 shadow-sm">
-        @if(Request::is('newsales/*') AND auth()->user()->level > 90)
-        <div class="card-header py-3">
-            <div class="row">
-
-
-                    <div class="col">
-                        <a type="button" class="btn btn-outline-primary" href="/listsales"><< На зад</a>
-                    </div>
-
-
-                <div class="col">
-                    <div class="d-flex justify-content-center">  <h4 class="my-0 fw-normal"> Продажба {{ $salesId }} </h4></div>
-                </div>
-            </div>
-
-
-        </div>
-        @endif
         <div class="card-body">
 
             <div class="row">
                 <div class="col-9">
-                    @if($status == 0)
+                    @if($status == 0 OR auth()->user()->level >90)
                     <div class="row justify-content-md-center">
                         <form action="/newsales" method="POST" >
                             @csrf
