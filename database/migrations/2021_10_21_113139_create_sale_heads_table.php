@@ -14,7 +14,7 @@ class CreateSaleHeadsTable extends Migration
     public function up()
     {
         Schema::create('sale_heads', function (Blueprint $table) {
-            $table->id()->index();
+            $table->id();
             $table->date('salesDate');
             $table->string('saldos_id');
             $table->string('users_id');

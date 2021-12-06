@@ -16,13 +16,14 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('ean')->index();
+            $table->string('ean');
             $table->decimal('delivery_price', $precision = 6, $scale = 2);
             $table->decimal('sale_price', $precision = 6, $scale = 2);
             $table->string('tax');
             $table->decimal('qty', $precision = 6, $scale = 4)->default('0');
             $table->string('status')->default('1');
             $table->timestamps();
+            $table->index(['ean']);
         });
     }
 

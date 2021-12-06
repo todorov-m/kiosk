@@ -28,6 +28,28 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+        @media screen {
+            #printSection {
+                display: none;
+            }
+        }
+        @media print {
+            body * {
+                visibility:hidden;
+            }
+            #printSection, #printSection * {
+                visibility:visible;
+            }
+            #printSection {
+                position:absolute;
+                left:0;
+                top:0;
+                margin: 0;
+                padding: 0;
+                overflow: visible!important;
+            }
+
+        }
 
     </style>
     <script src="{{ asset('js/cdn.min.js') }}" defer></script>
@@ -79,6 +101,28 @@
         });
     }
     window.onload=init;
+</script>
+
+<script language="javascript">
+    document.getElementById("btnPrint").onclick = function () {
+        printElement(document.getElementById("printThis"));
+    }
+
+    function printElement(elem) {
+        var domClone = elem.cloneNode(true);
+
+        var $printSection = document.getElementById("printSection");
+
+        if (!$printSection) {
+            var $printSection = document.createElement("div");
+            $printSection.id = "printSection";
+            document.body.appendChild($printSection);
+        }
+
+        $printSection.innerHTML = "";
+        $printSection.appendChild(domClone);
+        window.print();
+    }
 </script>
 
 </body>

@@ -41,8 +41,11 @@ class Items extends LivewireDatatable
         return [
             NumberColumn::name('id')->label('ID')->sortBy('id'),
             Column::name('ean')
+                ->editable()
                  ->label('Баркод'),
-            Column::name('name')->label('Име'),
+            Column::name('name')
+                ->editable()
+                ->label('Име'),
             Column::name('delivery_price')
                 ->editable()
                 ->label('Доставна цена'),

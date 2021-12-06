@@ -15,9 +15,9 @@ class CreateSaleContentsTable extends Migration
     {
         Schema::create('sale_contents', function (Blueprint $table) {
             $table->id();
-            $table->string('sale_heads_id')->index();
-            $table->string('items_id')->index();
-            $table->string('ean')->index();
+            $table->string('sale_heads_id');
+            $table->string('items_id');
+            $table->string('ean');
             $table->string('name');
             $table->string('tax');
             $table->string('quantity');
@@ -25,6 +25,7 @@ class CreateSaleContentsTable extends Migration
             $table->decimal('single_delivery_price', $precision = 6, $scale = 2);
             $table->decimal('linetotal', $precision = 6, $scale = 2);
             $table->timestamps();
+            $table->index(['sale_heads_id', 'items_id','ean']);
         });
     }
 

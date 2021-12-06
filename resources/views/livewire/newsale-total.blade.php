@@ -131,7 +131,12 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <button id="btnPrint" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" data-dismiss="modal">Print</button>
+                        </div>
+                        <div id="printThis">
                         @include('sales.receipt')
+                        </div>
                     </div>
                 </div>
             </div>

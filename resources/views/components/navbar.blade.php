@@ -3,8 +3,9 @@
        <a type="button" class="btn btn-outline-primary mr-5" href="/shiftstart">НАЧАЛО </a>
     @if (auth()->user()->level > 10)
             <a type="button" class="btn btn-outline-primary mr-5" href="/items">АРТИКУЛИ</a>
+            <a type="button" class="btn btn-outline-primary" href="/reports">СПРАВКИ</a>
         @endif
-        <a type="button" class="btn btn-outline-primary" href="/reports">СПРАВКИ</a>
+
        @endif
     @auth
 

@@ -1,26 +1,6 @@
        <style>
-           @media screen {
-               #printSection {
-                   display: none;
-               }
-           }
-           @media print {
-               body * {
-                   visibility:hidden;
-               }
-               #printSection, #printSection * {
-                   visibility:visible;
-               }
-               #printSection {
-                   position:absolute;
-                   left:0;
-                   top:0;
-               }
 
-
-           }
-
-        .centered {
+       .centered {
             text-align: center;
             align-content: center;
         }
@@ -143,18 +123,11 @@
             max-width: inherit;
             width: inherit;
         }
-           @media print {
-               .hidden-print,
-               .hidden-print * {
-                   display: none !important;
-               }
-           }
+
 
     </style>
-<div class="d-flex justify-content-center">
-       <button id="Print" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" data-dismiss="modal">Print</button>
-</div>
-<div class="ticket ml-2 mt-5 mb-5" id="printThis">
+
+<div class="ticket ml-2 mt-5 mb-5">
      <p class="centered">K C
         <br>Lebensmittel und mehr..
         <br>Lewerentzstrabe 17
@@ -242,24 +215,4 @@
     <br>
     <br>
 </div>
-       <script language="javascript" type="text/javascript">
-           document.getElementById("Print").onclick = function () {
-               printElement(document.getElementById("printThis"));
-           };
 
-           function printElement(elem) {
-               var domClone = elem.cloneNode(true);
-
-               var $printSection = document.getElementById("printSection");
-
-               if (!$printSection) {
-                   var $printSection = document.createElement("div");
-                   $printSection.id = "printSection";
-                   document.body.appendChild($printSection);
-               }
-
-               $printSection.innerHTML = "";
-               $printSection.appendChild(domClone);
-               window.print();
-           }
-       </script>
