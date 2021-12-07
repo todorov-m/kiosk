@@ -22,6 +22,7 @@ class Search extends Component
         'salesId' => 'required'
     ];
 
+
     protected $queryString = ['ean'];
 
     public function render()
@@ -29,9 +30,9 @@ class Search extends Component
         if (preg_match('/^[0-9]+$/', $this->ean) || strlen($this->ean) < 4) {
             return view('livewire.search');
         } else {
-              return view('livewire.search', [
+               return view('livewire.search', [
                 'posts' => Item::where('name', 'like', '%' . $this->ean . '%')->get(),
-                  'quantity' => $this->quantity,
+                   'quantity' => $this->quantity,
             ]);
 
         }

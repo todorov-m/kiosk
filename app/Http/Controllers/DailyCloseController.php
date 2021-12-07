@@ -112,13 +112,14 @@ class DailyCloseController extends Controller
 
 
             return view('reports.dailyclose')->with([
-                'daily_close_id' => $sales->id,
-                'daily_close_date' => $data['salesDate'],
+                'daily_close_id' => $dailyclose_data->id,
+                'daily_close_date' => $dailyclose_data->daily_close_date,
                 'close_create_date' => $dailyclose_data->created_at,
-                'users_id' => $data['users_id'],
-                'daily_close_total' => $sales->total,
-                'daily_close_total_7' => $sales->total_7,
-                'daily_close_total_19' => $sales->total_19,
+                'users_id' => $dailyclose_data->users_id,
+                'daily_close_total' => $dailyclose_data->daily_close_total,
+                'daily_close_total_7' => $dailyclose_data->daily_close_total_7,
+                'daily_close_total_19' => $dailyclose_data->daily_close_total_19,
+                'daily_close_status' => $dailyclose_data->daily_close_status,
                 'daily_item_count_7' => $dailyclose_data->daily_item_count_7,
                 'daily_item_count_19' => $dailyclose_data->daily_item_count_19,
                 'daily_sales_count' => $dailyclose_data->daily_sales_count,
