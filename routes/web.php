@@ -49,7 +49,7 @@ Route::get('/newsales', function () {
 
 # Нова Продажба
 Route::get('/newsales/{salesId}', [SaleController::class,'getsale'])->middleware('auth');
-Route::put('/newsales', [SaleController::class,'submit'])->middleware('auth');
+Route::get('/additem', [SaleController::class,'submit'])->middleware('auth');
 Route::post('/newsales', [SaleController::class,'store'])->middleware('auth');
 
 # Отказ на продажба status=99

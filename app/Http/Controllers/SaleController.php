@@ -99,106 +99,94 @@ class SaleController extends Controller
     {
         $data = request()->all();
 
-        $validator = Validator::make(request()->all(), [
-            'ean' => 'required|exists:items,ean',
-            'quantity' => 'required',
-            'salesId' => 'required'
-        ]);
 
-        if ($validator->fails()) {
-            return view('livewire.newsale')->with([
-                'salesId' => $data['salesId'],
-                'message'=> '0',
-                'status' => '0'
-            ]);
-        } else {
 
-            $item = \DB::table('items')->where('ean', $data['ean'])->first();
-           // $item = Item::where('ean', $data['ean'])->first();
+                $item = \DB::table('items')->where('id', $data['id'])->first();
+                // $item = Item::where('ean', $data['ean'])->first();
 
-            $saleitem = SaleContent::where('items_id', $item->id)->where('sale_heads_id', $data['salesId'])->first();
+                $saleitem = SaleContent::where('items_id', $item->id)->where('sale_heads_id', $data['salesId'])->first();
 
-            // проверка дали артикула съществува в Продажбата, ако ДА обновява количество и сума на ред, ако не създава Нов ред
-            if(isset($saleitem->id)){
-                $saleitem->quantity = $saleitem->quantity+$data['quantity'];
-                $saleitem->linetotal = $saleitem->quantity * $item->sale_price;
+                // проверка дали артикула съществува в Продажбата, ако ДА обновява количество и сума на ред, ако не създава Нов ред
+                if (isset($saleitem->id)) {
+                    $saleitem->quantity = $saleitem->quantity + $data['quantity'];
+                    $saleitem->linetotal = $saleitem->quantity * $item->sale_price;
 
-                SaleContent::where('items_id', $item->id)
-                    ->where('sale_heads_id', $data['salesId'])
-                    ->update([
-                        'quantity' => $saleitem->quantity,
-                        'linetotal' => $saleitem->linetotal
+                    SaleContent::where('items_id', $item->id)
+                        ->where('sale_heads_id', $data['salesId'])
+                        ->update([
+                            'quantity' => $saleitem->quantity,
+                            'linetotal' => $saleitem->linetotal
+                        ]);
+                    //Нов Тотал на документа
+                    $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->where('tax', 7)
+                        ->sum('linetotal');
+
+                    $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->where('tax', 19)
+                        ->sum('linetotal');
+
+                    $total = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->sum('linetotal');
+                    $headtotal = SaleHead::where('id', $data['salesId'])->first();
+
+                    $resto = $headtotal->payd - $total;
+
+                    SaleHead::where('id', $data['salesId'])
+                        ->update([
+                            'total' => $total,
+                            'total_7' => $total_7,
+                            'total_19' => $total_19,
+                            'resto' => $resto
+                        ]);
+
+                } else {
+
+                    $linetotal = $data['quantity'] * $item->sale_price;
+
+                    $salescontent = SaleContent::create([
+                        'sale_heads_id' => $data['salesId'],
+                        'items_id' => $item->id,
+                        'ean' => $item->ean,
+                        'name' => $item->name,
+                        'tax' => $item->tax,
+                        'quantity' => $data['quantity'],
+                        'single_price' => $item->sale_price,
+                        'single_delivery_price' => $item->delivery_price,
+                        'linetotal' => $linetotal
+
                     ]);
-                //Нов Тотал на документа
-                $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->where('tax', 7)
-                    ->sum('linetotal');
 
-                $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->where('tax', 19)
-                    ->sum('linetotal');
+                    //Нов Тотал на документа
+                    $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->where('tax', 7)
+                        ->sum('linetotal');
 
-                $total = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->sum('linetotal');
-                $headtotal = SaleHead::where('id', $data['salesId'])->first();
+                    $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->where('tax', 19)
+                        ->sum('linetotal');
 
-                $resto = $headtotal->payd - $total;
+                    $total = SaleContent::where('sale_heads_id', $data['salesId'])
+                        ->sum('linetotal');
+                    $headtotal = SaleHead::where('id', $data['salesId'])->first();
 
-                SaleHead::where('id', $data['salesId'])
-                    ->update([
-                        'total' => $total,
-                        'total_7' => $total_7,
-                        'total_19' => $total_19,
-                        'resto' => $resto
-                    ]);
+                    $resto = $headtotal->payd - $total;
+                    SaleHead::where('id', $data['salesId'])
+                        ->update([
+                            'total' => $total,
+                            'total_7' => $total_7,
+                            'total_19' => $total_19,
+                            'resto' => $resto
+                        ]);
+                }
 
-            }
-            else {
-
-                $linetotal = $data['quantity'] * $item->sale_price;
-
-                $salescontent = SaleContent::create([
-                    'sale_heads_id' => $data['salesId'],
-                    'items_id' => $item->id,
-                    'ean' => $data['ean'],
-                    'name' => $item->name,
-                    'tax' => $item->tax,
-                    'quantity' => $data['quantity'],
-                    'single_price' => $item->sale_price,
-                    'single_delivery_price' => $item->delivery_price,
-                    'linetotal' => $linetotal
-
+                return view('livewire.newsale')->with([
+                    'salesId' => $data['salesId'],
+                    'message' => '1',
+                    'status' => $headtotal->status
                 ]);
 
-                //Нов Тотал на документа
-                $total_7 = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->where('tax', 7)
-                    ->sum('linetotal');
 
-                $total_19 = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->where('tax', 19)
-                    ->sum('linetotal');
-
-                $total = SaleContent::where('sale_heads_id', $data['salesId'])
-                    ->sum('linetotal');
-                $headtotal = SaleHead::where('id', $data['salesId'])->first();
-
-                $resto = $headtotal->payd - $total;
-                SaleHead::where('id', $data['salesId'])
-                    ->update([
-                        'total' => $total,
-                        'total_7' => $total_7,
-                        'total_19' => $total_19,
-                        'resto' => $resto
-                    ]);
-            }
-
-            return view('livewire.newsale')->with([
-                'salesId' => $data['salesId'],
-                'message'=> '1',
-                'status' => $headtotal->status
-            ]);
-        }
     }
 
     public function deleterow(){
