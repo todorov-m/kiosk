@@ -15,10 +15,13 @@
 @endif
 
             <!-- Modal Receipt-->
-            <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="h3">Сума на продажбата - {{ $total }} </p>
 
+                        </div>
                         <div class="modal-body">
                             <form action="/custompayd" method="POST" name="vform">
                                 <input id="payd" type="text" name="payd"  value="{{ $head->payd }}" onfocus="this.value=''" class="h-20 form-control ml-auto mr-auto total-size"/>

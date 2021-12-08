@@ -20,16 +20,16 @@
            }
            td.description,
            th.description {
-               width: 70mm;
-               max-width: 70mm;
+               width: 60mm;
+               max-width: 60mm;
                text-align: left;
-               font-size: 16px;
+               font-size: 14px;
                }
 
            td.quantity,
            th.quantity {
-               width: 10mm;
-               max-width: 10mm;
+               width: 20mm;
+               max-width: 20mm;
                word-break: break-all;
                font-size: 16px;
            }
@@ -130,8 +130,8 @@
 <div class="ticket ml-2 mt-5 mb-5">
      <p class="centered">K C
         <br>Lebensmittel und mehr..
-        <br>Lewerentzstrabe 17
-         <br>47798 Krefeld
+        <br>Hauptstraße 99
+         <br>41236 Mönchengladbach
      </p>
     <table>
         <tbody>
@@ -151,7 +151,7 @@
         @foreach($sales as $sale)
             <tr>
                 <td class="description">{{$sale->name}}</td>
-                <td class="quantity">x{{$sale->quantity}}</td>
+                <td class="quantity">{{$sale->quantity}}x&euro;{{$sale->single_price}}</td>
                 <td class="price">&euro; {{$sale->linetotal}}</td>
             </tr>
            @endforeach
@@ -209,10 +209,32 @@
               </tbody>
     </table>
     <br>
-    <p class="centered">Vieten Dank
-        <br>für Theren Besuch!
+    <p class="centered">Vielen Dank
+        <br>für Ihren Besuch!!!
         </p>
     <br>
     <br>
 </div>
+
+       <script language="javascript">
+           document.getElementById("btnPrint").onclick = function () {
+               printElement(document.getElementById("printThis"));
+           }
+
+           function printElement(elem) {
+               var domClone = elem.cloneNode(true);
+
+               var $printSection = document.getElementById("printSection");
+
+               if (!$printSection) {
+                   var $printSection = document.createElement("div");
+                   $printSection.id = "printSection";
+                   document.body.appendChild($printSection);
+               }
+
+               $printSection.innerHTML = "";
+               $printSection.appendChild(domClone);
+               window.print();
+           }
+       </script>
 

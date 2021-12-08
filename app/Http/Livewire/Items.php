@@ -27,6 +27,7 @@ class Items extends LivewireDatatable
             'delivery_price' => 'required',
             'sale_price' => 'required',
             'tax' => 'required',
+            'packing' => 'required'
               ]);
         $data['delivery_price'] = str_replace(',','.',$data['delivery_price']);
         $data['sale_price'] = str_replace(',','.',$data['sale_price']);
@@ -48,10 +49,12 @@ class Items extends LivewireDatatable
                 ->label('Име'),
             Column::name('delivery_price')
                 ->editable()
-                ->label('Доставна цена'),
+                ->label('Дост. цена'),
             Column::name('sale_price')
                 ->editable()
-                ->label('Продажна цена'),
+                ->label('Прод. цена'),
+            Column::raw("IF(packing=1,'Брой','Килограм')")
+                ->label('Мярка'),
             Column::name('tax')
                 ->sortBy('tax')
                 ->label('Група данък')

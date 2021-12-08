@@ -21,6 +21,7 @@ class CreateSaleContentsTable extends Migration
             $table->string('name');
             $table->string('tax');
             $table->string('quantity');
+            $table->integer('packing');
             $table->decimal('single_price', $precision = 6, $scale = 2);
             $table->decimal('single_delivery_price', $precision = 6, $scale = 2);
             $table->decimal('linetotal', $precision = 6, $scale = 2);

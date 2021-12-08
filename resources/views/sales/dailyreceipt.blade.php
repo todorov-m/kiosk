@@ -156,8 +156,8 @@
 <div class="ticket ml-2 mt-5 mb-5" id="printThis">
     <p class="centered">K C
         <br>Lebensmittel und mehr..
-        <br>Lewerentzstrabe 17
-        <br>47798 Krefeld
+        <br>Hauptstraße 99
+        <br>41236 Mönchengladbach
     </p>
     <table>
         <tbody>
@@ -385,8 +385,8 @@
 
 
     <br>
-    <p class="centered">Vieten Dank
-        <br>für Theren Besuch!
+    <p class="centered">Vielen Dank
+        <br>für Ihren Besuch!!!
     </p>
     <br>
     <br>

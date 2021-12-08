@@ -151,6 +151,7 @@ class SaleController extends Controller
                         'name' => $item->name,
                         'tax' => $item->tax,
                         'quantity' => $data['quantity'],
+                        'packing' => $item->packing,
                         'single_price' => $item->sale_price,
                         'single_delivery_price' => $item->delivery_price,
                         'linetotal' => $linetotal
