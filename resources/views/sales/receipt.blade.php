@@ -20,27 +20,27 @@
            }
            td.description,
            th.description {
-               width: 60mm;
-               max-width: 60mm;
+               width: 55mm;
+               max-width: 55mm;
                text-align: left;
                font-size: 14px;
                }
 
            td.quantity,
            th.quantity {
-               width: 20mm;
-               max-width: 20mm;
+               width: 27mm;
+               max-width: 27mm;
                word-break: break-all;
-               font-size: 16px;
+               font-size: 14px;
            }
 
            td.price,
            th.price {
-               width: 20mm;
-               max-width: 20mm;
+               width: 18mm;
+               max-width: 18mm;
                word-break: break-all;
                text-align: right;
-               font-size: 16px;
+               font-size: 14px;
            }
 
            td.reg,

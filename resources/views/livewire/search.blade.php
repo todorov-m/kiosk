@@ -24,7 +24,7 @@
 
                 </div>
                 @error('ean') <div class="p-3 mb-2 bg-danger text-white">{{ $message }}</div> @enderror
-                @error('quantity') <div class="p-3 mb-2 bg-danger text-white">Въведеното количество трябва да е във вид <p class="h3">0.000</p></div> @enderror
+                @error('quantity') <div class="p-3 mb-2 bg-danger text-white">Продава се на ТЕГЛО! Въведете количество в този вид <p class="h3">0.000</p></div> @enderror
 
 
                 @isset($posts)

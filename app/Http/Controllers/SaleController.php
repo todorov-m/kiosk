@@ -97,9 +97,13 @@ class SaleController extends Controller
     #Съдържание на Продажбата
     public function submit()
     {
-        $data = request()->all();
+        $data = request()->validate([
+            'salesId' => 'required',
+            'id' => 'required',
+            'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
+        ]);
 
-
+        $data['quantity'] = str_replace(',','.',$data['quantity']);
 
                 $item = \DB::table('items')->where('id', $data['id'])->first();
                 // $item = Item::where('ean', $data['ean'])->first();

@@ -40,7 +40,7 @@ class Search extends Component
     #Съдържание на Продажбата
     public function submit()
     {
-
+    $this->quantity = str_replace(',','.',$this->quantity);
 
 
 
