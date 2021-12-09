@@ -90,7 +90,7 @@
         shortcut.add("Insert", function() {
             document.getElementById("SaveSale").click();
         });
-        shortcut.add("Delete", function() {
+        shortcut.add("end", function() {
             document.getElementById("CloseSale").click();
         });
         shortcut.add("f9", function() {

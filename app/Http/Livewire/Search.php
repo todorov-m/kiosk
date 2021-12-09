@@ -42,6 +42,9 @@ class Search extends Component
     public function submit()
     {
 
+        $validatedData = $this->validate([
+            'ean' => 'required|exists:items,ean',
+        ]);
         $this->quantity = str_replace(',','.',$this->quantity);
 
 
@@ -49,16 +52,10 @@ class Search extends Component
         // $item = Item::where('ean', $data['ean'])->first();
         if ($item->packing != 1){
             $validatedData = $this->validate([
-                'ean' => 'required|exists:items,ean',
-                 'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
+                  'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
 
             ]);
 
-        } else {
-            $validatedData = $this->validate([
-                'ean' => 'required|exists:items,ean',
-                'quantity' => 'required',
-            ]);
         }
 
         $saleitem = SaleContent::where('items_id', $item->id)->where('sale_heads_id', $this->salesId)->first();

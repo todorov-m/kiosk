@@ -57,7 +57,7 @@ class Items extends LivewireDatatable
                 ->label('Мярка'),
             Column::name('tax')
                 ->sortBy('tax')
-                ->label('Група данък')
+                ->label('Данък')
         ];
     }
 }
