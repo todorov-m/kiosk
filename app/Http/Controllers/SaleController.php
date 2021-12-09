@@ -95,13 +95,25 @@ class SaleController extends Controller
     }
 
     #Съдържание на Продажбата
-    public function submit()
+    public function submit(Request $request)
     {
-        $data = request()->validate([
-            'salesId' => 'required',
-            'id' => 'required',
-            'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
-        ]);
+        $item_id = $request->input('id');
+
+
+        $item = \DB::table('items')->where('id', $item_id)->first();
+        if ($item->packing != 1) {
+            $data = request()->validate([
+                'salesId' => 'required',
+                'id' => 'required',
+                'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
+            ]);
+        } else {
+            $data = request()->validate([
+                'salesId' => 'required',
+                'id' => 'required',
+                'quantity' => 'required',
+            ]);
+        }
 
         $data['quantity'] = str_replace(',','.',$data['quantity']);
 

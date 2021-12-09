@@ -32,6 +32,7 @@ class Search extends Component
             return view('livewire.search', [
                 'posts' => Item::where('name', 'like', '%' . $this->ean . '%')->get(),
                 'quantity' => $this->quantity,
+                'save' => 'disabled',
             ]);
 
         }
@@ -40,8 +41,8 @@ class Search extends Component
     #Съдържание на Продажбата
     public function submit()
     {
-    $this->quantity = str_replace(',','.',$this->quantity);
 
+        $this->quantity = str_replace(',','.',$this->quantity);
 
 
         $item = \DB::table('items')->where('ean', $this->ean)->first();
@@ -49,13 +50,14 @@ class Search extends Component
         if ($item->packing != 1){
             $validatedData = $this->validate([
                 'ean' => 'required|exists:items,ean',
-                'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
+                 'quantity' => 'required|regex:/^[\d]*[\.]\d{3}$/',
 
             ]);
-            $this->addError('test', 'The email field is invalid.');
+
         } else {
             $validatedData = $this->validate([
                 'ean' => 'required|exists:items,ean',
+                'quantity' => 'required',
             ]);
         }
 
