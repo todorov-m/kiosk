@@ -31,20 +31,18 @@
             <div class="w-full">
                 <div class="mt-3 text-center">
                     <h3 class="text-lg leading-6 font-medium text-gray-900 mb-5">
-Желаете ли да изтриете реда?
+                        Желаете ли да изтриете Артикула?
                     </h3>
 
-                        <a type="button" class="btn btn-danger" href="/deleterow" onclick="event.preventDefault();
-                                                     document.getElementById('delete-row-{{$value}}').submit();">Изтриване</a>
-                        <form id="delete-row-{{$value}}" action="/deleterow" method="POST"
-                              style="display: none;">
-                            <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
-                            <input type="hidden" name="total" value="0">
-                            <input type="hidden" name="status" value="0">
-                            <input type="hidden" name="recordId" value="{{$value}}">
-                            <input type="hidden" name="salesId" value="{{$salesId}}">
-                            @csrf
-                        </form>
+                    <a type="button" class="btn btn-danger" href="/deleteitem" onclick="event.preventDefault();
+                                                     document.getElementById('delete-item-{{$value}}').submit();">Изтриване</a>
+                    <form id="delete-item-{{$value}}" action="/deleteitem" method="POST"
+                          style="display: none;">
+                        <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="status" value="0">
+                        <input type="hidden" name="itemid" value="{{$value}}">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

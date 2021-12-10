@@ -18,6 +18,7 @@ class Items extends LivewireDatatable
     public $delivery_price;
     public $sale_price;
     public $tax;
+    public $userlevel;
 
     public function submit()
     {
@@ -35,6 +36,26 @@ class Items extends LivewireDatatable
         Item::create($data);
 
         return back()->with('success', 'Артикула е добавен!');
+    }
+
+    public function deleteitem()
+    {
+        $data = request()->validate([
+            'itemid' => 'required'
+        ]);
+
+
+        Item::destroy($data['itemid']);
+
+        return back()->with('success', 'Артикула е Изтрит!');
+    }
+
+    public function builder()
+    {
+        return Item::query()
+            ->where('status', 1)
+            ->orderBy('id', 'desc');
+
     }
 
     function columns()
@@ -57,7 +78,12 @@ class Items extends LivewireDatatable
                 ->label('Мярка'),
             Column::name('tax')
                 ->sortBy('tax')
-                ->label('Данък')
+                ->label('Данък'),
+            Column::callback(['id','status'], function ($id,$status) {
+                if($this->userlevel > 90) {
+                    return view('items.action', ['id' => $id]);
+                }
+            })->unsortable()
         ];
     }
 }

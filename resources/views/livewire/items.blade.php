@@ -32,7 +32,7 @@
                 </form>
             </div>
             <div class="col-md mt-4">
-                <livewire:items searchable="name, ean" per-page="50" exportable />
+                <livewire:items :userlevel="auth()->user()->level" searchable="name, ean" per-page="50" exportable />
 
             </div>
         </div>

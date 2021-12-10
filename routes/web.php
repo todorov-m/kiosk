@@ -41,6 +41,7 @@ Route::get('/items', function () {
 })->middleware('auth');
 
 Route::post('/items', [Items::class,'submit'])->middleware('auth');
+Route::post('/deleteitem', [Items::class,'deleteitem'])->middleware('auth');
 
 #Продажби
 Route::get('/newsales', function () {
