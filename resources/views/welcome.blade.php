@@ -4,7 +4,7 @@
 
     @else
         <div class="row justify-content-center mt-4">
-            <input type="button" value="ЗАТВОРИ!" onclick="windowClose();">
+            <input type="button" class="btn btn-outline-primary" value="ЗАТВОРИ!" onclick="windowClose();">
         </div>
         <div class="row justify-content-center mt-4">
 

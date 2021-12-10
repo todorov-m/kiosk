@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Item;
 use App\Models\SaleContent;
 use App\Models\SaleHead;
+use App\Rules\ItemCount;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -27,28 +28,40 @@ class Search extends Component
     public function render()
     {
         if (preg_match('/^[0-9]+$/', $this->ean) || strlen($this->ean) < 4) {
-            return view('livewire.search');
+                 return view('livewire.search');
         } else {
             return view('livewire.search', [
                 'posts' => Item::where('name', 'like', '%' . $this->ean . '%')->get(),
                 'quantity' => $this->quantity,
-                'save' => 'disabled',
+                'disabled' => 'disabled',
             ]);
 
         }
     }
 
-    #Съдържание на Продажбата
+    public function messages()
+    {
+        return [
+            'ean.exists' => 'Не е намерен БАРКОД!!!',
+
+        ];
+    }
+
+    #Запис на Артикул
     public function submit()
     {
 
         $validatedData = $this->validate([
-            'ean' => 'required|exists:items,ean',
+            'ean' => ['required','exists:items,ean', new ItemCount()],
+
         ]);
+
         $this->quantity = str_replace(',','.',$this->quantity);
 
+        $itemcount = \DB::table('items')->where('ean', $this->ean)->get();
 
-        $item = \DB::table('items')->where('ean', $this->ean)->first();
+          $item = \DB::table('items')->where('ean', $this->ean)->first();
+
         // $item = Item::where('ean', $data['ean'])->first();
         if ($item->packing != 1){
             $validatedData = $this->validate([

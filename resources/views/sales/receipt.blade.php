@@ -59,23 +59,26 @@
            }
         td.total,
         th.total {
-            width: 40px;
-            max-width: 40px;
+            width: 30mm;
+            max-width: 30mm;
             word-break: break-all;
             font-size:20px;
             text-align: right;
+            font-weight: bold;
         }
         td.bar,
         th.bar {
-            width: 40px;
-            max-width: 40px;
+            width: 30mm;
+            max-width: 30mm;
             word-break: break-all;
             text-align: right;
+            font-size:20px;
+            font-weight: bold;
         }
         td.tax-name,
         th.tax-name {
-            width: 60mm;
-            max-width: 60mm;
+            width: 50mm;
+            max-width: 50mm;
             word-break: break-all;
             text-align: left;
         }
@@ -117,6 +120,7 @@
         .table-centered {
             align-content: center;
             font-size: 18px;
+            width: 80mm;
         }
 
        img {

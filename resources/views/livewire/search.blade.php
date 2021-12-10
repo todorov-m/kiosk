@@ -19,11 +19,15 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <button id="sbutton" class="btn btn-primary mt-7 btn-lg" type="submit" @isset($save) {{$save}} @endisset>Добави</button>
+                        <button id="sbutton" class="btn btn-primary mt-7 btn-lg" type="submit" @isset($disabled) {{$disabled}} @endisset>Добави</button>
                     </div>
 
                 </div>
-                @error('ean') <div class="p-3 mb-2 bg-danger text-white">Не е намерен БАРКОД!!!</div> @enderror
+
+                @if($errors->has('ean'))
+                    <div class="p-3 mb-2 bg-danger text-white">{{ $errors->first('ean') }}</div>
+                @endif
+
                 @error('quantity') <div class="p-3 mb-2 bg-danger text-white">Продава се на ТЕГЛО! Въведете количество в този вид <p class="h3">0.000</p></div> @enderror
 
 
