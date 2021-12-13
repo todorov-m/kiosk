@@ -14,16 +14,35 @@ class SaleController extends Controller
 {
     public function getsale($salesId){
         $message = 1;
-        $sale = SaleHead::where('id', $salesId)->first();
+           $sale = SaleHead::where('id', $salesId)->first();
 
-        return view('livewire.newsale')->with([
-            'salesId' => $salesId,
-            'salesDate' => $sale->salesDate,
-            'oldsalesId' => $salesId,
-            'shift_id' => $sale->saldos_id,
-            'message'=> $message,
-            'status' => $sale->status
-        ]);
+            return view('livewire.newsale')->with([
+                'salesId' => $salesId,
+                'salesDate' => $sale->salesDate,
+                'oldsalesId' => $salesId,
+                'shift_id' => $sale->saldos_id,
+                'message'=> $message,
+                'status' => $sale->status
+            ]);
+
+        }
+
+
+    public function getsalean($salesId, $ean, $quantity){
+        $message = 1;
+
+            $sale = SaleHead::where('id', $salesId)->first();
+
+            return view('livewire.newsale')->with([
+                'salesId' => $salesId,
+                'salesDate' => $sale->salesDate,
+                'oldsalesId' => $salesId,
+                'shift_id' => $sale->saldos_id,
+                'message'=> $message,
+                'status' => $sale->status,
+                'quantity' => $quantity,
+                'items' => Item::where('ean', $ean)->get(),
+            ]);
 
     }
 

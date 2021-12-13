@@ -50,6 +50,7 @@ Route::get('/newsales', function () {
 
 # Нова Продажба
 Route::get('/newsales/{salesId}', [SaleController::class,'getsale'])->middleware('auth');
+Route::get('/newsales/{salesId}/{ean}/{quantity}', [SaleController::class,'getsalean'])->middleware('auth');
 Route::get('/additem', [SaleController::class,'submit'])->middleware('auth');
 Route::post('/newsales', [SaleController::class,'store'])->middleware('auth');
 
