@@ -25,8 +25,8 @@ class ItemCount implements Rule
      */
     public function passes($attribute, $value)
     {
-        $itemcount = \DB::table('items')->where('ean', $value)->get();
-        if($itemcount->count() > 1){
+        $item = \DB::table('items')->where('ean', $value)->get();
+        if($item->packing != 1){
             return false;
         };
     }
@@ -38,6 +38,6 @@ class ItemCount implements Rule
      */
     public function message()
     {
-        return 'Има повече от един артикул с този Баркод! Търсете по име!!!';
+        return 'Артикула се продава на Бройка!';
     }
 }

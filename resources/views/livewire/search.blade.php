@@ -103,9 +103,9 @@
                 @if($errors->has('ean'))
                     <div class="p-3 mb-2 bg-danger text-white">{{ $errors->first('ean') }}</div>
                 @endif
-
-                @error('quantity') <div class="p-3 mb-2 bg-danger text-white">Продава се на ТЕГЛО! Въведете количество в този вид <p class="h3">0.000</p></div> @enderror
-
+                @if($errors->has('quantity'))
+                    <div class="p-3 mb-2 bg-danger text-white">{{ $errors->first('quantity') }}</div>
+                @endif
 
                 @isset($posts)
 

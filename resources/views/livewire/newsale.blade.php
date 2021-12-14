@@ -10,6 +10,7 @@
                         <div class="row justify-content-md-center">
                             <div class="col-md-auto w-50">
                         <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger text-body">Намерени са няколко артикула с този БАРКОД! Изберете правилния от списъка!</a>
                             @foreach($items as $item)
                                 <a href="/additem?id={{ $item->id }}&quantity={{$quantity}}&salesId={{$salesId}}" class="list-group-item list-group-item-action"> {{ $item->name }} - {{ $item->ean }} - {{ $item->sale_price }}</a>
                             @endforeach

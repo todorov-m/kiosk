@@ -43,6 +43,8 @@ class Search extends Component
     {
         return [
             'ean.exists' => 'Не е намерен БАРКОД!!!',
+            'quantity.integer' => 'Артикула се продава на Бройка!',
+            'quantity.regex' => 'Продава се на ТЕГЛО! Въведете количество в този вид 0.000',
 
         ];
     }
@@ -75,6 +77,10 @@ class Search extends Component
 
                 ]);
 
+            } else {
+                $validatedData = $this->validate([
+                    'quantity' => 'integer',
+                ]);
             }
 
             $saleitem = SaleContent::where('items_id', $item->id)->where('sale_heads_id', $this->salesId)->first();
