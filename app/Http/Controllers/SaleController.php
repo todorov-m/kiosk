@@ -60,7 +60,7 @@ class SaleController extends Controller
             'salesDate'=> ''
         ]);
 
-        if($data['salesId']>'0'){
+        if($data['status'] == '1'){
             $total = SaleContent::where('sale_heads_id', $data['salesId'])->sum('linetotal');
             SaleHead::where('id', $data['salesId'])
                 ->update([
@@ -68,8 +68,21 @@ class SaleController extends Controller
                     'total' => floatval($total)
                 ]);
 
-            return redirect('/newsales/'.$data['salesId']);
-/* Генериране на ПДФ фай с разписката
+            $data['payd'] = '0';
+            $data['salesDate'] = date('Y-m-d');
+            $data['status'] = '0';
+
+            $saleid = SaleHead::create($data)->id;
+
+            return view('livewire.newsale')->with([
+                'salesId' => $saleid,
+                'shift_id' => $data['saldos_id'],
+                'oldsalesId' => $data['salesId'],
+                'message' => $message,
+                'status' => 0
+            ]);
+
+/*
             $sumtax7 = SaleContent::where('sale_heads_id', $data['salesId'])
                 ->where('tax', 7)
                 ->sum('linetotal');
@@ -87,12 +100,16 @@ class SaleController extends Controller
             $sales = SaleContent::where('sale_heads_id', $data['salesId'])
                 ->get();
 
-            $pdf = PDF::loadView('sales.receipt',['tax7'=>$tax7, 'tax19'=>$tax19, 'sumtax7'=>$sumtax7, 'sumtax19'=>$sumtax19, 'sales'=>$sales ])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
+            $salehead = SaleHead::where('id', $data['salesId'])->first();
+
+            $pdf = PDF::loadView('sales.receipt',['tax7'=>$tax7, 'tax19'=>$tax19, 'sumtax7'=>$sumtax7, 'sumtax19'=>$sumtax19, 'sales'=>$sales, 'total'=> $salehead->total, 'status'=>$salehead->status,
+                'startsale'=> $salehead->created_at, 'endsale'=> $salehead->updated_at, 'salesId'=> $data['salesId']])->setOptions(['defaultFont' => 'sans-serif']); // <--- load your view into theDOM wrapper;
             $path = public_path('/receipt/'); // <--- folder to store the pdf documents into the server;
             $fileName =  'receipt.pdf' ; // <--giving the random filename,
             $pdf->save(public_path().'/receipt/receipt_'.$data['salesId'].'.pdf');
             $message = '3';
-            */
+
+*/
 
             }
         else {
@@ -113,6 +130,16 @@ class SaleController extends Controller
 
     }
 
+    public function messages()
+    {
+        return [
+            'ean.exists' => 'Не е намерен БАРКОД!!!',
+            'quantity.integer' => 'Артикула се продава на Бройка!',
+            'quantity.regex' => 'Продава се на ТЕГЛО! Въведете количество в този вид 0.000',
+
+        ];
+    }
+
     #Съдържание на Продажбата
     public function submit(Request $request)
     {
@@ -130,7 +157,7 @@ class SaleController extends Controller
             $data = request()->validate([
                 'salesId' => 'required',
                 'id' => 'required',
-                'quantity' => 'required',
+                'quantity' => 'required|integer',
             ]);
         }
 

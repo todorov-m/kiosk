@@ -100,29 +100,12 @@
         </div>
     @if($status == 0)
     <div class="col-md-12">
-        <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size" href="/newsales" id="SaveSale" onclick="event.preventDefault();
-                                                     document.getElementById('saleSave').submit();">ЗАПИС</a>
-        <form id="saleSave" action="/newsales" method="POST"
-              style="display: none;">
-            <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
-            <input type="hidden" name="total" value="0">
-            <input type="hidden" name="status" value="0">
-            <input type="hidden" name="salesId" value="{{ $salesId }}">
-            <input type="hidden" name="saldos_id" value="{{$head->saldos_id}}">
-            @csrf
-        </form>
+        <div class="col-md-12">
+            <a role="button" class="btn btn-success btn-lg btn-block pt-4 pb-4 total-size" data-toggle="modal" data-target="#receiptPrint" data-backdrop="static" data-keyboard="false" id="btnPrint"> ЗАПИС </a>
+        </div>
+
 
     </div>
-
-        <div class="col-md-12">
-            <a role="button" class="btn btn-danger btn-lg btn-block pt-4 pb-4 total-size mt-3" href="/clearsale/{{ $salesId }}" id="CloseSale" > ОТКАЗ </a>
-
-        </div>
-    @else
-        <div class="col-md-12">
-            <a role="button" class="btn btn-primary btn-lg btn-block pt-4 pb-4 total-size" data-toggle="modal" data-target="#receiptPrint" data-backdrop="static" data-keyboard="false" id="PrintSale"> ПРИНТ </a>
-        </div>
-
         <!-- Modal Receipt-->
         <div class="modal fade" id="receiptPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -135,12 +118,49 @@
                     </div>
                     <div class="modal-body">
                         <div class="d-flex justify-content-center">
-                            <button id="btnPrint" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" data-dismiss="modal">Print</button>
+                            <a role="button" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" href="/newsales" id="SaveSale" onclick="event.preventDefault();
+                                                     document.getElementById('saleSave').submit();">ЗАТВОРИ</a>
+                            <form id="saleSave" action="/newsales" method="POST"
+                                  style="display: none;">
+                                <input type="hidden" name="users_id" value="{{auth()->user()->id}}">
+                                <input type="hidden" name="total" value="0">
+                                <input type="hidden" name="status" value="1">
+                                <input type="hidden" name="salesId" value="{{ $salesId }}">
+                                <input type="hidden" name="saldos_id" value="{{$head->saldos_id}}">
+                                @csrf
+                            </form>
                         </div>
-                        <div id="printThis">
-                        @include('sales.receipt')
-                        </div>
+                            @include('sales.receipt')
                     </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <a role="button" class="btn btn-danger btn-lg btn-block pt-4 pb-4 total-size mt-3" href="/clearsale/{{ $salesId }}" id="CloseSale" > ОТКАЗ </a>
+
+        </div>
+    @else
+        <div class="col-md-12">
+            <a role="button" class="btn btn-primary btn-lg btn-block pt-4 pb-4 total-size" data-toggle="modal" data-target="#receiptPrint" data-backdrop="static" data-keyboard="false" id="btnPrint"> ПРИНТ </a>
+        </div>
+
+        <!-- Modal Receipt-->
+        <div class="modal fade" id="receiptPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex" id="exampleModalLabel">ПРОДАЖБА № {{ $salesId }}</h5>
+                         </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <button id="btnPrint" class="hidden-print btn btn-primary btn-lg pl-5 pr-5" data-dismiss="modal">Затвори</button>
+                        </div>
+                        @include('sales.receipt')
+
                 </div>
             </div>
         </div>

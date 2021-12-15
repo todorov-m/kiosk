@@ -131,6 +131,7 @@
 
     </style>
 
+           <div id="printThis">
 <div class="ticket ml-2 mt-5 mb-5">
      <p class="centered">K C
         <br>Lebensmittel und mehr..
@@ -219,26 +220,30 @@
     <br>
     <br>
 </div>
+           </div>
 
-       <script language="javascript">
-           document.getElementById("btnPrint").onclick = function () {
-               printElement(document.getElementById("printThis"));
-           }
+               <script language="javascript">
+                   document.getElementById("btnPrint").onclick = function () {
+                       printElement(document.getElementById("printThis"));
+                   }
 
-           function printElement(elem) {
-               var domClone = elem.cloneNode(true);
+                   function printElement(elem) {
+                       var domClone = elem.cloneNode(true);
 
-               var $printSection = document.getElementById("printSection");
+                       var $printSection = document.getElementById("printSection");
 
-               if (!$printSection) {
-                   var $printSection = document.createElement("div");
-                   $printSection.id = "printSection";
-                   document.body.appendChild($printSection);
-               }
+                       if (!$printSection) {
+                           var $printSection = document.createElement("div");
+                           $printSection.id = "printSection";
+                           document.body.appendChild($printSection);
+                       }
 
-               $printSection.innerHTML = "";
-               $printSection.appendChild(domClone);
-               window.print();
-           }
-       </script>
+                       $printSection.innerHTML = "";
+                       $printSection.appendChild(domClone);
+                       window.print();
+                   }
+               </script>
+
+
+
 

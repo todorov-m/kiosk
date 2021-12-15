@@ -7,84 +7,14 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-row">
 
-                    <div class="form-group col-md-6">
+
+
+                    <div class="form-group col-md-5">
                         <label for="ean" class="form-label">Баркод/Име</label>
-                        <input class="form-control form-ean form-control-lg" wire:model.debounce.600ms="ean" id="ean" type="text" required="" autofocus="" data-toggle="modal" data-target="#eanModal">
+                        <input class="form-control form-ean form-control-lg" wire:model.debounce.600ms="ean" id="ean" type="text" required="" autofocus="" >
 
                     </div>
-                    <!-- Modal Receipt-->
-                    <div class="modal fade" id="eanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <br />
-                                    <div class="row justify-content-md-center">
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="1" value="1" id="1" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="2" value="2" id="2" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="3" value="3" id="3" onClick=addNumberEAN(this); />
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-md-center mt-2">
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="4" value="4" id="4" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="5" value="5" id="5" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="6" value="6" id="6" onClick=addNumberEAN(this); />
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-md-center mt-2">
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="7" value="7" id="7" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="8" value="8" id="8" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="9" value="9" id="9" onClick=addNumberEAN(this); />
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-md-center mt-2">
-                                        <div class="col">
-                                            <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="0" value="0" id="0" onClick=addNumberEAN(this); />
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" class="btn btn-outline-danger btn-block total-size" onclick="ClearEan();">Clear</button>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-md-center mt-2">
-                                        <div class="col">
-                                            <button type="button" class="btn btn-primary btn-block total-size" data-dismiss="modal" onclick="focusQTY();">ЗАПИС</button>
-                                        </div>
 
-                                    </div>
-
-                                    <script type="text/javascript">
-                                        function addNumberEAN(element){
-                                            document.getElementById('ean').value = document.getElementById('ean').value+element.value;
-
-                                        }
-                                        function ClearEan() {
-                                            document.getElementById("ean").value = "";
-                                        }
-                                        function focusQTY() {
-                                            document.getElementById("ean").dispatchEvent(new Event('input'));
-                                             document.getElementById("quantity").focus();
-
-                                        }
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Modal Receipt-->
 
 
 
@@ -98,9 +28,89 @@
                         <button id="sbutton" class="btn btn-primary mt-7 btn-lg" type="submit" @isset($disabled) {{$disabled}} @endisset>Добави</button>
                     </div>
 
+                    <div class="form-group col-md-auto">
+                        <label for="ean" class="form-label"></label>
+                        <img src="{{ asset('img/keyboard_small.png') }}" data-toggle="modal" data-target="#eanModal" class="mb-2">
+
+                        <!-- Modal Receipt-->
+                        <div class="modal fade" id="eanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <br />
+                                        <div class="row justify-content-md-center">
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="1" value="1" id="1" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="2" value="2" id="2" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="3" value="3" id="3" onClick=addNumberEAN(this); />
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-md-center mt-2">
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="4" value="4" id="4" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="5" value="5" id="5" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="6" value="6" id="6" onClick=addNumberEAN(this); />
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-md-center mt-2">
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="7" value="7" id="7" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="8" value="8" id="8" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="9" value="9" id="9" onClick=addNumberEAN(this); />
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-md-center mt-2">
+                                            <div class="col">
+                                                <input type="button" class="btn btn-lg btn-outline-info btn-block total-size" name="0" value="0" id="0" onClick=addNumberEAN(this); />
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" class="btn btn-outline-danger btn-block total-size" onclick="ClearEan();">Clear</button>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-md-center mt-2">
+                                            <div class="col">
+                                                <button type="button" class="btn btn-primary btn-block total-size" data-dismiss="modal" onclick="focusQTY();">ЗАПИС</button>
+                                            </div>
+
+                                        </div>
+
+                                        <script type="text/javascript">
+                                            function addNumberEAN(element){
+                                                document.getElementById('ean').value = document.getElementById('ean').value+element.value;
+
+                                            }
+                                            function ClearEan() {
+                                                document.getElementById("ean").value = "";
+                                            }
+                                            function focusQTY() {
+                                                document.getElementById("ean").dispatchEvent(new Event('input'));
+                                                document.getElementById("quantity").focus();
+
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Modal Receipt-->
+
+                    </div>
+
                 </div>
 
-                @if($errors->has('ean'))
+               @if($errors->has('ean'))
                     <div class="p-3 mb-2 bg-danger text-white">{{ $errors->first('ean') }}</div>
                 @endif
                 @if($errors->has('quantity'))
