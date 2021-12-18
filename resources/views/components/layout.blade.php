@@ -12,15 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script>function isLoaded()
-        {
-            var pdfFrame = window.frames["pdf"];
-            pdfFrame.focus();
-            pdfFrame.print();
-        }</script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tailwind.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/keyboard.css') }}" rel="stylesheet">
 
     <!-- Styles -->
 
@@ -54,7 +50,7 @@
     </style>
     <script src="{{ asset('js/cdn.min.js') }}" defer></script>
     <script src="{{ asset('js/shortcut.js') }}" defer></script>
-
+    <script src="{{ asset('js/keyboard.js') }}" ></script>
     <script language="javascript" type="text/javascript">
         function windowClose() {
             window.open('','_parent','');

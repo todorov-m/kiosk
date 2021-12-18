@@ -3,7 +3,7 @@
      <div class="col-md-12">
          <div class="h1 total-label">№ {{ $salesId }}  Тотал</div>
          <div class="h1 total-label alert alert-success ml-auto mr-auto pt-3 pb-3"> {{ $total }} </div>
-        </div>
+     </div>
 
 
         <div class="col-md-12">
@@ -11,7 +11,7 @@
             @if($head->status == 1)
                 <div class="h1 total-label alert alert-secondary ml-auto mr-auto pt-3 pb-3"> {{ $head->payd }} </div>
 @else
-                <a role="button" class="btn btn-outline-secondary btn-lg btn-block pt-2 pb-2 total-size" data-toggle="modal" data-target="#payment"  data-keyboard="false" id="PrintSale">{{ $head->payd }}</a>
+                <a role="button" class="input btn btn-outline-secondary btn-lg btn-block pt-2 pb-2 total-size" data-toggle="modal" data-target="#payment"  data-keyboard="false">{{ $head->payd }}</a>
 @endif
 
             <!-- Modal Receipt-->
@@ -112,9 +112,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title d-flex" id="exampleModalLabel">ПРОДАЖБА № {{ $salesId }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+
                     </div>
                     <div class="modal-body">
                         <div class="d-flex justify-content-center">
